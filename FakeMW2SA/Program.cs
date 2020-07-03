@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Security.Principal;
-using System.Runtime.InteropServices;
 
 namespace FakeMW2SA
 {
@@ -27,25 +24,33 @@ namespace FakeMW2SA
         {
             using (WebClient client = new WebClient())
             {
-                try {
+                Console.WriteLine("here we are");
+                try
+                {
                     MOTD = client.DownloadString("https://mw2.adie.space/MOTD.php").Trim();
                 }
-                catch (WebException e) {
+                catch (WebException e)
+                {
                     Console.WriteLine(e.Message);
                 }
-                try {
+                Console.WriteLine("another place");
+                try
+                {
                     MyExternalIP = client.DownloadString("http://icanhazip.com").Trim();
                 }
-                catch (WebException e){
+                catch (WebException e)
+                {
                     Console.WriteLine(e.Message);
                     MyExternalIP = "0.0.0.0";
                 }
-                try {
+                try
+                {
                     LatestVersion = client.DownloadString("https://mw2.adie.space/latestversion.php").Trim();
                     try
                     {
                         Version NewestVersion = new Version(LatestVersion);
-                        if (CurrentVersion.CompareTo(NewestVersion) < 0) {
+                        if (CurrentVersion.CompareTo(NewestVersion) < 0)
+                        {
                             Console.WriteLine("Update Available. Check https://mw2.adie.space/download");
                             Console.WriteLine("Current version: " + CurrentVersion.ToString() + " Latest version: " + LatestVersion.ToString());
                         }
@@ -61,22 +66,25 @@ namespace FakeMW2SA
                     }
 
                 }
-                catch (WebException e) {
+                catch (WebException e)
+                {
                     Console.WriteLine(e.Message);
                 }
                 if (MOTD != "")
                 {
+                    Console.WriteLine("MOTD not empty");
                     Console.WriteLine(MOTD);
                 }
                 else
                 {
-                    Console.WriteLine("problem");
+                    Console.WriteLine("MOTD empty");
                 }
+                Console.WriteLine("now we are here");
             }
+            Console.WriteLine("last place to be");
         }
         public static void Addipaddress(string item)
         {
-
             lock (thisLock)
             {
                 //insert IP address into the beginning of the list, if the list grows to 300, remove the last 10
@@ -86,20 +94,22 @@ namespace FakeMW2SA
                     ipaddresses.RemoveRange(290, 10);
                 }
             }
-            
+
         }
         static void Main(string[] args)
         {
+            Console.WriteLine("start");
             if (args.Length > 0)
             {
                 Int64.TryParse(args[0], out port);
             }
-            Console.Title = "FakeMW2SA Version "+ typeof(Program).Assembly.GetName().Version.ToString();
+            Console.Title = "FakeMW2SA Version " + typeof(Program).Assembly.GetName().Version.ToString();
             HttpClient.Start();
             Sniffer.Start();
             WriteOnBottomLine("0");
+            Console.WriteLine("before that here marker");
             InitialWebCalls();
-
+            Console.WriteLine("we are here marker");
         }
         static bool ConsoleEventCallback(int eventType)
         {
@@ -113,11 +123,22 @@ namespace FakeMW2SA
         //This function writes some statistics to the bottom of the cmd winndow
         public static void WriteOnBottomLine(string text)
         {
-            if (text == "memberjoin") { memberjoincount += 1; }
-            else if (text == "partystate") { partystatecount += 1; }
-            else if (text == "apicalls") { apicalls += 1; }
-            else { playersinpacket = text + "  "; }
-
+            if (text == "memberjoin")
+            {
+                memberjoincount += 1;
+            }
+            else if (text == "partystate")
+            {
+                partystatecount += 1;
+            }
+            else if (text == "apicalls")
+            {
+                apicalls += 1;
+            }
+            else
+            {
+                playersinpacket = text + "  ";
+            }
             int x = Console.CursorLeft;
             int y = Console.CursorTop;
             Console.CursorTop = Console.WindowTop + Console.WindowHeight - 1;
@@ -125,7 +146,5 @@ namespace FakeMW2SA
             // Restore previous position
             Console.SetCursorPosition(x, y);
         }
-
     }
-
 }

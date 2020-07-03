@@ -20,7 +20,6 @@ namespace FakeMW2SA
             output.Write(buffer, 0, buffer.Length);
         }
     }
-
     class HttpClient
     {
         public static void Run()
@@ -80,7 +79,6 @@ namespace FakeMW2SA
                             default:
                                 break;
                         }
-
                     }
                     response.WriteResponse(responseString);
                 }
