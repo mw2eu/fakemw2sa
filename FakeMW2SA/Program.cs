@@ -68,6 +68,10 @@ namespace FakeMW2SA
                 {
                     Console.WriteLine(MOTD);
                 }
+                else
+                {
+                    Console.WriteLine("problem");
+                }
             }
         }
         public static void Addipaddress(string item)
