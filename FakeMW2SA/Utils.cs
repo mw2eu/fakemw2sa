@@ -211,7 +211,6 @@ namespace FakeMW2SA
                 }
             }
         }
-
         public static string ReadEmbeddedResrourceAsString(string resourceName)
         {
             var assembly = Assembly.GetExecutingAssembly();
@@ -235,5 +234,4 @@ namespace FakeMW2SA
             }
         }
     }
-
 }
