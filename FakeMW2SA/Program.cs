@@ -24,16 +24,6 @@ namespace FakeMW2SA
         {
             using (WebClient client = new WebClient())
             {
-                Console.WriteLine("here we are");
-                try
-                {
-                    MOTD = client.DownloadString("https://mw2.adie.space/MOTD.php").Trim();
-                }
-                catch (WebException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-                Console.WriteLine("another place");
                 try
                 {
                     MyExternalIP = client.DownloadString("http://icanhazip.com").Trim();
@@ -43,43 +33,6 @@ namespace FakeMW2SA
                     Console.WriteLine(e.Message);
                     MyExternalIP = "0.0.0.0";
                 }
-                try
-                {
-                    LatestVersion = client.DownloadString("https://mw2.adie.space/latestversion.php").Trim();
-                    try
-                    {
-                        Version NewestVersion = new Version(LatestVersion);
-                        if (CurrentVersion.CompareTo(NewestVersion) < 0)
-                        {
-                            Console.WriteLine("Update Available. Check https://mw2.adie.space/download");
-                            Console.WriteLine("Current version: " + CurrentVersion.ToString() + " Latest version: " + LatestVersion.ToString());
-                        }
-                        if (CurrentVersion.CompareTo(NewestVersion) > 0)
-                        {
-                            Console.Write("Current version is newer than expected: ");
-                            Console.WriteLine(CurrentVersion.CompareTo(NewestVersion));
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
-
-                }
-                catch (WebException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-                if (MOTD != "")
-                {
-                    Console.WriteLine("MOTD not empty");
-                    Console.WriteLine(MOTD);
-                }
-                else
-                {
-                    Console.WriteLine("MOTD empty");
-                }
-                Console.WriteLine("now we are here");
             }
             Console.WriteLine("last place to be");
         }
