@@ -64,14 +64,6 @@ namespace FakeMW2SA
             InitialWebCalls();
             Console.WriteLine("we are here marker");
         }
-        static bool ConsoleEventCallback(int eventType)
-        {
-            if (eventType == 2)
-            {
-                Utils.Clearfirewall();
-            }
-            return false;
-        }
         public static string playersinpacket = "0";
         //This function writes some statistics to the bottom of the cmd winndow
         public static void WriteOnBottomLine(string text)
