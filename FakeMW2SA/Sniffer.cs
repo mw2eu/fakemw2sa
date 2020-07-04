@@ -11,8 +11,6 @@ namespace FakeMW2SA
     class Sniffer
     {
         public static List<string> localipaddresses = new List<string>();
-
-
         private const int ReadTimeoutMilliseconds = 5000;
         public static void Run()
         {
@@ -28,7 +26,6 @@ namespace FakeMW2SA
                 {
                     //Write each device to the console.
                     //Console.Out.WriteLine("{0}", dev.Description);
-
                     foreach (SharpPcap.LibPcap.PcapAddress addr in dev.Addresses)
                     {
                         if (addr.Addr != null && addr.Addr.ipAddress != null)
@@ -60,7 +57,6 @@ namespace FakeMW2SA
                 Environment.Exit(1);
             }
         }
-
         public static void DeviceOnOnPacketArrival(object sender, CaptureEventArgs captureEventArgs)
         {
             int numberofplayers = 0;
@@ -69,12 +65,10 @@ namespace FakeMW2SA
             var PacketPayloadInHex = BitConverter.ToString(eth.Bytes).Replace("-", string.Empty);
             var DestIP = new IPAddress(long.Parse(Utils.ReverseBytes(PacketPayloadInHex.Substring(60, 8)), System.Globalization.NumberStyles.AllowHexSpecifier)).ToString();
             var SourceIP = new IPAddress(long.Parse(Utils.ReverseBytes(PacketPayloadInHex.Substring(52, 8)), System.Globalization.NumberStyles.AllowHexSpecifier)).ToString();
-            
             if (!localipaddresses.Contains(SourceIP))
             {
                 Program.Addipaddress(SourceIP);
             }
-
             if (PacketPayloadInHex.Contains(@"70617274797374617465")) //"partystate" - The partystate packet contains a lot of information including player name, steam ID, reported IP, and score information.
             {
                 Program.WriteOnBottomLine("partystate");//incriment the console partystate count by one
@@ -92,7 +86,6 @@ namespace FakeMW2SA
                 {
                     var partystatesteamid = long.Parse(Utils.ReverseBytes(matches2[ctr].Value.Substring(10, 16)), System.Globalization.NumberStyles.HexNumber).ToString();
                     var partystateip = new IPAddress(long.Parse(Utils.ReverseBytes(matches2[ctr].Value.Substring(34, 8)), System.Globalization.NumberStyles.AllowHexSpecifier)).ToString();
-
                     PlayerModel player;
                     //Search the list of players with a matching steam ID
                     if ((Program.players.Find(x => x.steamid == partystatesteamid) == null))
@@ -156,7 +149,6 @@ namespace FakeMW2SA
                 //We've extracted all the player information from the packet as needed. We're going to call on some external web APIs to obtain more information.
                 Utils.CallApis();
             }
-
             if (PacketPayloadInHex.Contains(@"6D656D62"))//"memberjoin" We log the header IP and player name from these packets, to defeat IP spoofers.
             {
                 Program.WriteOnBottomLine("memberjoin");
