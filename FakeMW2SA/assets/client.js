@@ -269,7 +269,6 @@ function populate() {
 
     $('#playertable').append(content);
     $("a.host").append(' <span class="badge badge-info">host</span>')
-    $("#host").html("<a class='dropdown-toggle host' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>" + host + "</span></a><div class='dropdown-menu' aria-labelledby='dropdownMenuLink'><a class='dropdown-item' href='#' onclick=\"ban('" + host + "', '" + host + "')\">Ban</a>");
     $("#apicalls").html(apicalls + " api calls")
     $("#partystatepackets").html(partystatepackets + "  partystatepackets")
     $("#memberjoinpackets").html(memberjoinpackets + " memberjoin packets")
