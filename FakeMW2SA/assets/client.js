@@ -43,11 +43,6 @@ function reload() {
             })
         }
 
-        function cleanarray(array, index) {
-            // ??
-        }
-
-        partygroups.forEach(cleanarray)
         partygroups.forEach(sortem)
 
         partygroups.sort(function(a, b) {
