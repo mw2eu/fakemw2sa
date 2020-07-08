@@ -69,12 +69,7 @@ function reload() {
 
 function vac(player) {
     if (player.vacbanned == 1) {
-        if (player.numberofvacbans > 1) {
-            var s = "s";
-        } else {
-            var s = "";
-        }
-        return player.numberofvacbans + " VAC ban" + s + " " + Math.floor((new Date).getTime()/86400000 - player.dateoflastban/86400) + "d";
+        return "VAC (" + player.numberofvacbans + ") " + Math.floor((new Date).getTime()/86400000 - player.dateoflastban/86400) + "d";
     } else {
         return "False";
     }
