@@ -243,10 +243,6 @@ function populate() {
     });
 }
 
-function nothing() {
-    return;
-}
-
 function escape(args) {
     if ("string" !== typeof args) {
         return "";
