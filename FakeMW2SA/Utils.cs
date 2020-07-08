@@ -130,7 +130,6 @@ namespace FakeMW2SA
         }
         public static int FindPartyID()
         {
-
             for (int i = 1; i <= 1000; i++)
             {
                 if ((Program.players.Find(x => x.partyID == i)) == null)
@@ -257,8 +256,9 @@ namespace FakeMW2SA
                 using (Stream stream = assembly.GetManifestResourceStream($"FakeMW2SA.{resourceName}"))
                 {
                     if (stream == null)
+                    {
                         return string.Empty;
-
+                    }
                     using (StreamReader reader = new StreamReader(stream))
                     {
                         return reader.ReadToEnd();
