@@ -4,9 +4,6 @@ function reload() {
     jsonresponse = $.ajax("/?action=players&csrf=" + csrf).done(function() {
         data = jsonresponse.responseJSON["players"];
         host = jsonresponse.responseJSON["host"];
-        apicalls = jsonresponse.responseJSON["apicalls"];
-        partystatepackets = jsonresponse.responseJSON["partystatecount"];
-        memberjoinpackets = jsonresponse.responseJSON["memberjoincount"];
         ipaddresses = jsonresponse.responseJSON["ipaddresses"];
         var partygroups = [];
 
@@ -77,7 +74,7 @@ function vac(player) {
         } else {
             var s = "";
         }
-        return player.numberofvacbans + " VAC ban" + s + " " + Math.floor((new Date).getTime()/86400000 - player.dateoflastban/86400) + " days ago";
+        return player.numberofvacbans + " VAC ban" + s + " " + Math.floor((new Date).getTime()/86400000 - player.dateoflastban/86400) + "d";
     } else {
         return "False";
     }
@@ -128,13 +125,6 @@ function playerhost(player) {
 function populate() {
     var ts = Math.round((new Date()).getTime() / 1000);
     $('#playertable').children().remove();
-    //Table Head
-    $("#iplist").empty();
-    for (var each of ipaddresses) {
-        $("#iplist").append("<a id = '" + each + "' class='dropdown-item' id='memberjoinpackets' href='#' onclick=\"ban('" + each + "', 'unknown')\">" + each + "</a>")
-    }
-    $("#iplist").append("<a id = 'clearbans' class='dropdown-item' id='memberjoinpackets' href='#' onclick=\"clearbans()\">Clear bans</a>")
-
     if (memberjoin == false) {
         var content =  `<table class='table table-striped table-hover table-bordered ' class='players'>
                         <tbody>
@@ -148,7 +138,6 @@ function populate() {
                                 <th>Location</th>
                                 <th>IP</th>
                                 <th>Last seen</th>
-                                <th>test</th>
                             </tr>
                         </thead>`;
         for (player of data) {
@@ -219,7 +208,6 @@ function populate() {
                 //Last Seen
                 content += '<td class="lastseen">' + moment(player.lastseen * 1000).fromNow() + '</td>';
                 $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
-                content += '<td><input type="text" class="form-control"></td>'
             }
         }
     } else {
@@ -269,9 +257,6 @@ function populate() {
 
     $('#playertable').append(content);
     $("a.host").append(' <span class="badge badge-info">host</span>')
-    $("#apicalls").html(apicalls + " api calls")
-    $("#partystatepackets").html(partystatepackets + "  partystatepackets")
-    $("#memberjoinpackets").html(memberjoinpackets + " memberjoin packets")
 
     //apply party colours
     var color = 0;

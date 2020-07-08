@@ -34,7 +34,6 @@ namespace FakeMW2SA
                     MyExternalIP = "0.0.0.0";
                 }
             }
-            Console.WriteLine("last place to be");
         }
         public static void Addipaddress(string item)
         {
@@ -51,7 +50,6 @@ namespace FakeMW2SA
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("start");
             if (args.Length > 0)
             {
                 Int64.TryParse(args[0], out port);
@@ -60,12 +58,9 @@ namespace FakeMW2SA
             HttpClient.Start();
             Sniffer.Start();
             WriteOnBottomLine("0");
-            Console.WriteLine("before that here marker");
             InitialWebCalls();
-            Console.WriteLine("we are here marker");
         }
         public static string playersinpacket = "0";
-        //This function writes some statistics to the bottom of the cmd winndow
         public static void WriteOnBottomLine(string text)
         {
             if (text == "memberjoin")
@@ -84,12 +79,7 @@ namespace FakeMW2SA
             {
                 playersinpacket = text + "  ";
             }
-            int x = Console.CursorLeft;
-            int y = Console.CursorTop;
-            Console.CursorTop = Console.WindowTop + Console.WindowHeight - 1;
-            Console.Write("Partystate packets: {0} | Memberjoin packets: {1} | Api calls: {2} | Players in last partystate: {3}", partystatecount, memberjoincount, apicalls, playersinpacket);
-            // Restore previous position
-            Console.SetCursorPosition(x, y);
+            Console.WriteLine("Partystate packets: {0} | Memberjoin packets: {1} | Api calls: {2} | Players in last partystate: {3}", partystatecount, memberjoincount, apicalls, playersinpacket);
         }
     }
 }

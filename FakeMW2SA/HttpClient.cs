@@ -32,11 +32,10 @@ namespace FakeMW2SA
             try
             {
                 var localhostURI = "http://localhost:" + Program.port + "/";
-
                 HttpListener listener = new HttpListener();
                 listener.Prefixes.Add(localhostURI);
                 listener.Start();
-                Console.WriteLine("Listening on " + localhostURI);
+                //Console.WriteLine("Listening on " + localhostURI);
                 while (true)
                 {
                     string responseString = String.Format(Utils.ReadEmbeddedResrourceAsString("index.html"), Program.csrf);
@@ -85,9 +84,7 @@ namespace FakeMW2SA
             }
             catch (HttpListenerException)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Unable to open the application on port " + Program.port + "/" + ". Is the application already running?");
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Unable to open the application on port " + Program.port + "/");
                 Console.WriteLine("Press any key to exit.");
                 Console.ReadKey();
                 Environment.Exit(1);
