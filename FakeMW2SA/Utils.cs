@@ -20,7 +20,6 @@ namespace FakeMW2SA
             cmd.StartInfo.CreateNoWindow = true;
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
-
             cmd.StandardInput.Flush();
             cmd.StandardInput.WriteLine(command);
             cmd.StandardInput.Flush();
@@ -44,6 +43,7 @@ namespace FakeMW2SA
                 {
                     player.banned = "False";
                 }
+                Console.WriteLine("route delete " + ip + " 12.34.56.78");
                 RunCommand("route delete " + ip + " 12.34.56.78");
             }
         }
@@ -92,7 +92,6 @@ namespace FakeMW2SA
                     ascii += character;
 
                 }
-
                 return ascii;
             }
             catch (Exception ex)
@@ -100,7 +99,6 @@ namespace FakeMW2SA
                 Console.WriteLine(hexString);
                 Console.WriteLine(ex.Message);
             }
-
             return string.Empty;
         }
         public static byte[] StringToByteArray(String hex)
@@ -254,7 +252,6 @@ namespace FakeMW2SA
         public static string ReadEmbeddedResrourceAsString(string resourceName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-
             try
             {
                 using (Stream stream = assembly.GetManifestResourceStream($"FakeMW2SA.{resourceName}"))

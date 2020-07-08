@@ -148,12 +148,12 @@ function populate() {
             }
             //Player location
             if (player.ip == "0.0.0.0" || player.ip == "1.3.3.7" || player.ip == "127.0.0.1" || player.ip == "255.255.255.255") {
-                content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag"><a href="#"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></a></td>';
+                content += '<td class="location">' + '<div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></td>';
             } else {
                 if (player.ip == player.memberjoinip || player.memberjoinip == null) {
-                    content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag">' + playerlocation(player) + '</a></td>';
+                    content += '<td class="location">' + playerlocation(player) + '</td>';
                 } else {
-                    content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></a></td>';
+                    content += '<td class="location"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></td>';
                 }
             }
             content += '<td class="ip">' + player.ip + '</td>';
@@ -282,51 +282,10 @@ setInterval(function() {
 
 function copyTextToClipboard(text) {
     var textArea = document.createElement("textarea");
-
-    //
-    // *** This styling is an extra step which is likely not required. ***
-    //
-    // Why is it here? To ensure:
-    // 1. the element is able to have focus and selection.
-    // 2. if element was to flash render it has minimal visual impact.
-    // 3. less flakyness with selection and copying which **might** occur if
-    //    the textarea element is not visible.
-    //
-    // The likelihood is the element won't even render, not even a
-    // flash, so some of these are just precautions. However in
-    // Internet Explorer the element is visible whilst the popup
-    // box asking the user for permission for the web page to
-    // copy to the clipboard.
-    //
-
-    // Place in top-left corner of screen regardless of scroll position.
-    textArea.style.position = 'fixed';
-    textArea.style.top = 0;
-    textArea.style.left = 0;
-
-    // Ensure it has a small width and height. Setting to 1px / 1em
-    // doesn't work as this gives a negative w/h on some browsers.
-    textArea.style.width = '2em';
-    textArea.style.height = '2em';
-
-    // We don't need padding, reducing the size if it does flash render.
-    textArea.style.padding = 0;
-
-    // Clean up any borders.
-    textArea.style.border = 'none';
-    textArea.style.outline = 'none';
-    textArea.style.boxShadow = 'none';
-
-    // Avoid flash of white box if rendered for any reason.
-    textArea.style.background = 'transparent';
-
-
     textArea.value = text;
-
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
-
     try {
         var successful = document.execCommand('copy');
         var msg = successful ? 'successful' : 'unsuccessful';

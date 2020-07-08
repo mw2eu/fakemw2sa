@@ -104,16 +104,6 @@ div.nobypass {
     font-stretch: semi-condensed;
 }
 
-.flag {
-    object-fit:cover;
-    height: 18px;
-    width: 30px;
-    border-color: #444;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 50%;
-    margin-right: 10px;
-}
 img.rank {
     max-height: 30px;
     display: inline-block;
