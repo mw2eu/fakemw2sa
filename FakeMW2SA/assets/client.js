@@ -122,7 +122,6 @@ function populate() {
                             <tr>
                                 <th class='rank'>Rank</th>
                                 <th>Name</th>
-                                <th>Acc Age</th>
                                 <th>VAC</th>
                                 <th>Location</th>
                                 <th>IP</th>
@@ -132,7 +131,6 @@ function populate() {
         for (player of data) {
             if (player.memberjoin == false) {
                 $("#" + player.ip).append("hi")
-
                 content += '<tr class="' + player.partyID + '">'
                 //Player Rank
                 content += '<td class="rank"><img src="http://mw2.adie.space/images/ranks/' + rank(player) + '.png" class="rank"><div class="level">' + (parseInt(player.level) + 1) + '</div></td>'
@@ -149,16 +147,6 @@ function populate() {
                     content += "<a class='dropdown-item' href='#' onclick=\"unban('" + player.ip + "', '"+strip(player.personaname)+"')\">Unban</a></div></td>";
                 }
 
-                if (player.timecreated == 0) {
-                    content += '<td class="hours">Private</td>';
-                } else if (Math.floor((Date.now()/1000-player.timecreated)/86400) > 365) {
-                    if (Math.round((Date.now()/1000-player.timecreated)/86400/365) == 1) {
-                        // ??
-                    }
-                    content += '<td class="hours">' + ((Date.now()/1000-player.timecreated)/86400/365).toFixed(1) + ' years</td>';
-                } else {
-                    content += '<td class="hours">' + Math.floor((Date.now()/1000-player.timecreated)/86400) + ' days</td>';
-                }
                 //Player VAC ban
                 if (player.vacbanned == 1) {
                     if (player.vacbypass == 0) {
