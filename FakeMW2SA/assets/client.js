@@ -1,5 +1,3 @@
-var memberjoin = false;
-
 function reload() {
     jsonresponse = $.ajax("/?action=players&csrf=" + csrf).done(function() {
         data = jsonresponse.responseJSON["players"];
@@ -109,106 +107,64 @@ function playerhost(player) {
 function populate() {
     var ts = Math.round((new Date()).getTime() / 1000);
     $('#playertable').children().remove();
-    if (memberjoin == false) {
-        var content =  `<table class='table table-striped table-hover table-bordered ' class='players'>
-                        <tbody>
-                        <thead class='thead-dark'>
-                            <tr>
-                                <th class='rank'>Rank</th>
-                                <th>Name</th>
-                                <th>VAC</th>
-                                <th>Location</th>
-                                <th>IP</th>
-                                <th>Last seen</th>
-                            </tr>
-                        </thead>`;
-        for (player of data) {
-            if (player.memberjoin == false) {
-                $("#" + player.ip).append("hi")
-                content += '<tr class="' + player.partyID + '">'
-                //Player Rank
-                content += '<td class="rank"><img src="http://mw2.adie.space/images/ranks/' + rank(player) + '.png" class="rank"><div class="level">' + (parseInt(player.level) + 1) + '</div></td>'
-                //Player Name
-                content += "<td class='name" + checkban(player) + "'><a class='dropdown-toggle " + playerhost(player) + "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>" + escape(player.personaname) + "</span></a>";
-                content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
-                var text = `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
-                content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>View Profile</a>";
-                content += "<a class='dropdown-item' href='#' onclick=\"copyTextToClipboard('" + text + "')\">Copy</a>";
+    var content =  `<table class='table table-striped table-hover table-bordered ' class='players'>
+                    <tbody>
+                    <thead class='thead-dark'>
+                        <tr>
+                            <th class='rank'>Rank</th>
+                            <th>Name</th>
+                            <th>VAC</th>
+                            <th>Location</th>
+                            <th>IP</th>
+                            <th>Last seen</th>
+                        </tr>
+                    </thead>`;
+    for (player of data) {
+        $("#" + player.ip).append("hi")
+        content += '<tr class="' + player.partyID + '">'
+        //Player Rank
+        content += '<td class="rank"><img src="http://mw2.adie.space/images/ranks/' + rank(player) + '.png" class="rank"><div class="level">' + (parseInt(player.level) + 1) + '</div></td>'
+        //Player Name
+        content += "<td class='name" + checkban(player) + "'><a class='dropdown-toggle " + playerhost(player) + "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>" + escape(player.personaname) + "</span></a>";
+        content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
+        var text = `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+        content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>View Profile</a>";
+        content += "<a class='dropdown-item' href='#' onclick=\"copyTextToClipboard('" + text + "')\">Copy</a>";
 
-                if ((player.banned == null) || (player.banned == "False")) {
-                    content += "<a class='dropdown-item' href='#' onclick=\"ban('" + player.ip + "', '"+strip(player.personaname)+"')\">Ban</a></div></td>";
-                } else {
-                    content += "<a class='dropdown-item' href='#' onclick=\"unban('" + player.ip + "', '"+strip(player.personaname)+"')\">Unban</a></div></td>";
-                }
+        if ((player.banned == null) || (player.banned == "False")) {
+            content += "<a class='dropdown-item' href='#' onclick=\"ban('" + player.ip + "', '"+strip(player.personaname)+"')\">Ban</a></div></td>";
+        } else {
+            content += "<a class='dropdown-item' href='#' onclick=\"unban('" + player.ip + "', '"+strip(player.personaname)+"')\">Unban</a></div></td>";
+        }
 
-                //Player VAC ban
-                if (player.vacbanned == 1) {
-                    if (player.vacbypass == 0) {
-                        content += '<td class="vac"><div class="btn btn-success btn-sm">' + vac(player) + '</div></td>';
-                    }
-                    if (player.vacbypass == 1) {
-                        content += '<td class="vac"><div class="btn btn-warning btn-sm">' + vac(player) + '</div></td>';
-                    }
-                    if (player.vacbypass == 2) {
-                        content += '<td class="vac"><div class="btn btn-danger btn-sm">' + vac(player) + '</div></td>';
-                    }
-                } else {
-                    content += '<td class="vac">' + vac(player) + '</td>';
-                }
-                //Player location
-                if (player.ip == "0.0.0.0" || player.ip == "1.3.3.7" || player.ip == "127.0.0.1" || player.ip == "255.255.255.255") {
-                    content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag"><a href="#"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></a></td>';
-                } else {
-                    if (player.ip == player.memberjoinip || player.memberjoinip == null) {
-                        content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag">' + playerlocation(player) + '</a></td>';
-                    } else {
-                        content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></a></td>';
-                    }
-                }
-                content += '<td class="ip">' + player.ip + '</td>';
-                //Last Seen
-                content += '<td class="lastseen">' + moment(player.lastseen * 1000).fromNow() + '</td>';
-                $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
+        //Player VAC ban
+        if (player.vacbanned == 1) {
+            if (player.vacbypass == 0) {
+                content += '<td class="vac"><div class="btn btn-success btn-sm">' + vac(player) + '</div></td>';
+            }
+            if (player.vacbypass == 1) {
+                content += '<td class="vac"><div class="btn btn-warning btn-sm">' + vac(player) + '</div></td>';
+            }
+            if (player.vacbypass == 2) {
+                content += '<td class="vac"><div class="btn btn-danger btn-sm">' + vac(player) + '</div></td>';
+            }
+        } else {
+            content += '<td class="vac">' + vac(player) + '</td>';
+        }
+        //Player location
+        if (player.ip == "0.0.0.0" || player.ip == "1.3.3.7" || player.ip == "127.0.0.1" || player.ip == "255.255.255.255") {
+            content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag"><a href="#"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></a></td>';
+        } else {
+            if (player.ip == player.memberjoinip || player.memberjoinip == null) {
+                content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag">' + playerlocation(player) + '</a></td>';
+            } else {
+                content += '<td class="location"><img src = http://mw2.adie.space/images/flags/' + player.countrycode + '.svg class="flag"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></a></td>';
             }
         }
-    } else {
-        var content =  `<table class='table table-striped table-hover table-bordered ' class='players'>
-        <tbody>
-        <thead class='thead-dark'>
-            <tr>
-                <th>Name</th>
-                <th>Actual IP</th>
-                <th>Reported IP</th>
-                <th>Last seen</th>
-            </tr>
-        </thead>`;
-        for (player of data) {
-            if (player.memberjoin == true) {
-                content += "<td class='name" + checkban(player) + "'><a class='dropdown-toggle " + playerhost(player) + "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>" + escape(player.personaname) + "</span></a>";
-                content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
-                content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>View Profile</a>";
-                if (player.memberjoin != null) {
-                    ipaddress = player.memberjoinip
-                } else {
-                    ipaddress = player.ip
-                }
-                if ((player.banned == null) || (player.banned == "False")) {
-                    content += "<a class='dropdown-item' href='#' onclick=\"ban('" + ipaddress + "', '" + strip(player.personaname) + "')\">Ban</a></div></td>";
-                } else {
-                    content += "<a class='dropdown-item' href='#' onclick=\"unban('" + ipaddress + "', '" + strip(player.personaname) + "')\">Unban</a></div></td>";
-                }
-                if (player.ip == player.memberjoinip || player.memberjoinip == null) {
-                content += '<td>' + player.memberjoinip + '</td>';
-                content += '<td>' + player.ip + '</td>';
-                } else {
-                content += '<td>' + player.memberjoinip + '</td>';
-                content += '<td><div class="btn btn-danger btn-sm">' + player.ip + '</div></td>';
-                }
-                content += '<td class="lastseen">' + moment(player.lastseen * 1000).fromNow() + '</td>';
-                content += '</tr>'
-            }
-        }
-        content += '</tr>'
+        content += '<td class="ip">' + player.ip + '</td>';
+        //Last Seen
+        content += '<td class="lastseen">' + moment(player.lastseen * 1000).fromNow() + '</td>';
+        $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
     }
     content += "</table>"
 
@@ -327,15 +283,6 @@ function clearbans() {
 setInterval(function() {
     reload();
 }, 30 * 1000);
-
-function memberjointoggle() {
-    if (memberjoin == false) {
-        memberjoin = true;
-    } else {
-        memberjoin = false;
-    }
-    reload();
-}
 
 function copyTextToClipboard(text) {
     var textArea = document.createElement("textarea");
