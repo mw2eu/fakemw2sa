@@ -86,12 +86,6 @@ function playerlocation(player) {
     result = "";
     if (player.country != null) {
         result += player.country;
-        if (player.region != null) {
-            result += ", " + player.region;
-            if (player.city != null) {
-                result += ", " + player.city;
-            }
-        }
     }
     return result;
 }
@@ -223,8 +217,8 @@ function populate() {
     }
 
     $('#playertable').append(content);
+    //tag the host
     $("a.host").append(' <span class="badge badge-info">host</span>')
-
     //apply party colours
     var color = 0;
     var parties = [];
@@ -327,7 +321,6 @@ function clearbans() {
         setTimeout(function() {
             reload();
         }, 125);
-
     }
 }
 
