@@ -122,7 +122,6 @@ function populate() {
                             <tr>
                                 <th class='rank'>Rank</th>
                                 <th>Name</th>
-                                <th>Hours</th>
                                 <th>Acc Age</th>
                                 <th>VAC</th>
                                 <th>Location</th>
@@ -150,16 +149,6 @@ function populate() {
                     content += "<a class='dropdown-item' href='#' onclick=\"unban('" + player.ip + "', '"+strip(player.personaname)+"')\">Unban</a></div></td>";
                 }
 
-                //Player Hours
-                if (player.communityvisibilitystate == 3) {
-                    if (player.mw2hours == 0) {
-                        content += '<td class="hours">-</td>';
-                    } else {
-                        content += '<td class="hours">' + player.mw2hours + '</td>';
-                    }
-                } else {
-                    content += '<td class="hours">Private</td>';
-                }
                 if (player.timecreated == 0) {
                     content += '<td class="hours">Private</td>';
                 } else if (Math.floor((Date.now()/1000-player.timecreated)/86400) > 365) {
