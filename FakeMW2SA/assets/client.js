@@ -1,3 +1,4 @@
+
 function reload() {
   jsonresponse = $.ajax("/?action=players&csrf=" + csrf).done(function() {
     data = jsonresponse.responseJSON["players"];
@@ -48,6 +49,7 @@ function reload() {
     populate();
   })
 }
+
 function vac(player) {
   if (player.vacbanned == 1) {
     return "VAC (" + player.numberofvacbans + ") " + Math.floor((new Date).getTime()/86400000 - player.dateoflastban/86400) + "d";
@@ -55,6 +57,7 @@ function vac(player) {
     return "False";
   }
 }
+
 function rank(player) {
   if (player.presteige > 1) {
     if (player.presteige > 10) {
@@ -66,6 +69,7 @@ function rank(player) {
     return parseInt(player.level) + 1;
   }
 }
+
 function playerlocation(player) {
   result = "";
   if (player.country != null) {
@@ -73,6 +77,7 @@ function playerlocation(player) {
   }
   return result;
 }
+
 function checkban(player) {
   if (player.banned == "True") {
     return " bg-danger"
@@ -80,6 +85,7 @@ function checkban(player) {
     return ""
   }
 }
+
 function playerhost(player) {
   if (player.host == true) {
     return "host";
@@ -87,6 +93,7 @@ function playerhost(player) {
     return "";
   }
 }
+
 function populate() {
   var ts = Math.round((new Date()).getTime() / 1000);
   $('#playertable').children().remove();
@@ -172,6 +179,7 @@ function populate() {
     }
   });
 }
+
 function escape(args) {
   if ("string" !== typeof args) {
     return "";
@@ -202,6 +210,7 @@ function escape(args) {
   s = (s + "</span>").replace(/<span><\/span>/g, "");
   return s = s.replace(/<span class=\"color[0-9]\"><\/span>/g, "");
 }
+
 function strip(args) {
   if ("string" !== typeof args) {
     return "";
@@ -230,6 +239,7 @@ function strip(args) {
   }
   return s;
 }
+
 function ban(ip, name) {
   if (confirm("Are you sure you want to kick " + name)) {
     $.ajax("/?action=ban&ip=" + ip + "&csrf=" + csrf);
@@ -238,6 +248,7 @@ function ban(ip, name) {
     }, 125);
   }
 }
+
 function unban(ip, name) {
   if (confirm("Are you sure you want to unban " + name)) {
     $.ajax("/?action=unban&ip=" + ip + "&csrf=" + csrf);
@@ -246,6 +257,7 @@ function unban(ip, name) {
     }, 125);
   }
 }
+
 function clearbans() {
   if (confirm("Are you sure you want to clear all bans?")) {
     $.ajax("/?action=clearbans" + "&csrf=" + csrf);
@@ -254,9 +266,11 @@ function clearbans() {
     }, 125);
   }
 }
+
 setInterval(function() {
   reload();
 }, 30 * 1000);
+
 function copyTextToClipboard(text) {
   var textArea = document.createElement("textarea");
   textArea.value = text;
@@ -272,9 +286,11 @@ function copyTextToClipboard(text) {
   }
   document.body.removeChild(textArea);
 }
+
 setTimeout(function() {
   reload();
 }, 425);
+
 $(document).ready(function () {
   $('.dropdown-toggle').dropdown();
 });
