@@ -1,69 +1,101 @@
 
-function reload() {
-  jsonresponse = $.ajax("/?action=players").done(function() {
-    data = jsonresponse.responseJSON["players"];
-    host = jsonresponse.responseJSON["host"];
-    ipaddresses = jsonresponse.responseJSON["ipaddresses"];
-    var partygroups = [];
-    for (i = 0; i < data.length; i++) {
-      var temp = data.filter(function(a) {
-        return (a.partyID == i);
-      });
-      if (temp[0] != null) {
-        lastseens = [];
-        temp2 = [];
-        temp.forEach(function(item) {
-          lastseens.push(item.lastseen);
-        });
-        biggest = Math.max(...lastseens);
-        temp.forEach(function(item) {
-          if (item.lastseen != biggest) {
-              item.partyID = 0;
-              partygroups.push([item]);
-          } else {
-              temp2.push(item);
-          }
-        });
-        if (temp2.length > 0) {
-          partygroups.push(temp2);
+function reload()
+{
+    jsonresponse = $.ajax("/?action=players").done(function ()
+    {
+        data = jsonresponse.responseJSON["players"];
+        host = jsonresponse.responseJSON["host"];
+        ipaddresses = jsonresponse.responseJSON["ipaddresses"];
+
+        var partygroups = [];
+
+        for (i = 0; i < data.length; i++)
+        {
+            var temp = data.filter(function (a)
+            {
+                return (a.partyID == i);
+            });
+
+            if (temp[0] != null)
+            {
+                lastseens = [];
+                temp2 = [];
+
+                temp.forEach(function (item)
+                {
+                    lastseens.push(item.lastseen);
+                });
+
+                biggest = Math.max(...lastseens);
+
+                temp.forEach(function (item)
+                {
+                    if (item.lastseen != biggest)
+                    {
+                        item.partyID = 0;
+                        partygroups.push([item]);
+                    }
+                    else
+                    {
+                        temp2.push(item);
+                    }
+                });
+
+                if (temp2.length > 0)
+                {
+                    partygroups.push(temp2);
+                }
+            }
         }
-      }
-    }
-    function sortem(array) {
-      array.sort(function(a, b) {
-         return (b.lastseen - a.lastseen)
-      })
-    }
-    partygroups.forEach(sortem)
-    partygroups.sort(function(a, b) {
-      return (b[0].lastseen - a[0].lastseen)
+
+        function sortem(array)
+        {
+            array.sort(function (a, b)
+            {
+                return (b.lastseen - a.lastseen);
+            });
+        }
+
+        partygroups.forEach(sortem);
+
+        partygroups.sort(function (a, b)
+        {
+            return (b[0].lastseen - a[0].lastseen);
+        })
+
+        newdata = []
+        for (a = 0; a < partygroups.length; a++)
+        {
+            for (i = 0; i < partygroups[a].length; i++)
+            {
+                newdata.push(partygroups[a][i]);
+            }
+        }
+
+        data = newdata;
+
+        populate();
     })
-    newdata = []
-    for (a = 0; a < partygroups.length; a++) {
-      for (i = 0; i < partygroups[a].length; i++) {
-        newdata.push(partygroups[a][i])
-      }
-    }
-    data = newdata;
-    var ts = Math.round((new Date()).getTime() / 1000);
-    populate();
-  })
 }
 
 function vac(player) {
-  if (player.vacbanned == 1) {
-    return "VAC (" + player.numberofvacbans + ") " + Math.floor((new Date).getTime()/86400000 - player.dateoflastban/86400) + "d";
-  } else {
-    return "False";
-  }
+    if (player.vacbanned == 1) {
+        return "VAC (" + player.numberofvacbans + ") " + Math.floor((new Date).getTime() / 86400000 - player.dateoflastban / 86400) + "d";
+    }
+    else
+    {
+        return "False";
+    }
 }
 
-function playerlocation(player) {
-  result = "";
-  if (player.country != null) {
-    result += player.country;
-  }
-  return result;
+function playerlocation(player)
+{
+    result = "";
+    if (player.country != null)
+    {
+        result += player.country;
+    }
+    return result;
 }
 
 function checkban(player) {
