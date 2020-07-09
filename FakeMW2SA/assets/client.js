@@ -98,9 +98,9 @@ function populate() {
   var ts = Math.round((new Date()).getTime() / 1000);
   $('#playertable').children().remove();
   var content = 
-    `<table class='table table-striped table-hover table-bordered ' class='players'>
+    `<table class="table table-striped table-hover table-bordered" class="players">
       <tbody>
-      <thead class='thead-dark'>
+      <thead class="thead-dark">
         <tr>
           <th>Name</th>
           <th>VAC</th>
@@ -113,19 +113,23 @@ function populate() {
     if (player.memberjoin == false) {
       $("#" + player.ip).append("hi")
       content += '<tr class="' + player.partyID + '">'
-      //Player Name
-      content += "<td class='name" + checkban(player) + "'><a class='dropdown-toggle " + playerhost(player) + "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>" + escape(player.personaname) + "</span></a>";
-      content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
+      // player name
+      content += "<td class='name " + checkban(player) + "'><a class='dropdown-toggle " + playerhost(player) + "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>" + escape(player.personaname) + "</span></a>";
+      //content += '<td class="name ' + checkban(player) + '"><a class="dropdown-toggle ' + playerhost(player) + '" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>' + escape(player.personaname) + '</span></a>';
+      content += '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+      content += '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
       var text = `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+      // view profile
       content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>Profile</a>";
+      // copy user info
       content += "<a class='dropdown-item' href='#' onclick=\"copyTextToClipboard('" + text + "')\">Copy</a>";
-      //
+      // ban / unban
       if ((player.banned == null) || (player.banned == "False")) {
         content += "<a class='dropdown-item' href='#' onclick=\"ban('" + player.ip + "', '"+strip(player.personaname)+"')\">Ban</a></div></td>";
       } else {
         content += "<a class='dropdown-item' href='#' onclick=\"unban('" + player.ip + "', '"+strip(player.personaname)+"')\">Unban</a></div></td>";
       }
-      //Player VAC ban
+      // player VAC ban
       if (player.vacbanned == 1) {
         if (player.vacbypass == 0) {
           content += '<td class="vac"><div class="btn btn-success btn-sm">' + vac(player) + '</div></td>';
@@ -161,7 +165,7 @@ function populate() {
   }
   $('#playertable').append(content);
   //tag the host
-  $("a.host").append(' <span class="badge badge-info">host</span>')
+  $("a.host").append('<span class="badge badge-info">host</span>')
   //apply party colours
   var color = 0;
   var parties = [];
