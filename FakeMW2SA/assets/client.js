@@ -117,7 +117,6 @@ function populate() {
       content += "<td class='name " + checkban(player) + "'><a class='dropdown-toggle " + playerhost(player) + "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>" + escape(player.personaname) + "</span></a>";
       //content += '<td class="name ' + checkban(player) + '"><a class="dropdown-toggle ' + playerhost(player) + '" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>' + escape(player.personaname) + '</span></a>';
       content += '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
-      content += '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
       var text = `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
       // view profile
       content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>Profile</a>";
