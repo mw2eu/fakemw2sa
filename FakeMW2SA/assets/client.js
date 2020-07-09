@@ -58,18 +58,6 @@ function vac(player) {
   }
 }
 
-function rank(player) {
-  if (player.presteige > 1) {
-    if (player.presteige > 10) {
-      return "Prestige" + 11;
-    } else {
-      return "Prestige" + player.presteige;
-    }
-  } else {
-    return parseInt(player.level) + 1;
-  }
-}
-
 function playerlocation(player) {
   result = "";
   if (player.country != null) {
