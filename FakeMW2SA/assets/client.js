@@ -1,6 +1,6 @@
 
 function reload() {
-  jsonresponse = $.ajax("/?action=players&csrf=" + csrf).done(function() {
+  jsonresponse = $.ajax("/?action=players").done(function() {
     data = jsonresponse.responseJSON["players"];
     host = jsonresponse.responseJSON["host"];
     ipaddresses = jsonresponse.responseJSON["ipaddresses"];
@@ -245,7 +245,7 @@ function strip(args) {
 
 function ban(ip, name) {
   if (confirm("Are you sure you want to kick " + name)) {
-    $.ajax("/?action=ban&ip=" + ip + "&csrf=" + csrf);
+    $.ajax("/?action=ban&ip=" + ip);
     setTimeout(function() {
       reload();
     }, 125);
@@ -254,16 +254,7 @@ function ban(ip, name) {
 
 function unban(ip, name) {
   if (confirm("Are you sure you want to unban " + name)) {
-    $.ajax("/?action=unban&ip=" + ip + "&csrf=" + csrf);
-    setTimeout(function() {
-      reload();
-    }, 125);
-  }
-}
-
-function clearbans() {
-  if (confirm("Are you sure you want to clear all bans?")) {
-    $.ajax("/?action=clearbans" + "&csrf=" + csrf);
+    $.ajax("/?action=unban&ip=" + ip);
     setTimeout(function() {
       reload();
     }, 125);

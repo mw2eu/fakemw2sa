@@ -26,14 +26,6 @@ namespace FakeMW2SA
             cmd.StandardInput.Close();
             cmd.WaitForExit();
         }
-        public static void Clearfirewall()
-        {
-            foreach (PlayerModel each in Program.players)
-            {
-                each.banned = "False";
-            }
-            RunCommand("route delete * 12.34.56.78");
-        }
         public static void Unban(string ip)
         {
             if (ip.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Length == 4)

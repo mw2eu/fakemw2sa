@@ -14,7 +14,6 @@ namespace FakeMW2SA
         private const int ReadTimeoutMilliseconds = 5000;
         public static void Run()
         {
-            Utils.Clearfirewall(); //Clear firewall rules upon first launching the application
             try
             {
                 var devices = CaptureDeviceList.Instance;

@@ -38,7 +38,7 @@ namespace FakeMW2SA
                 //Console.WriteLine("Listening on " + localhostURI);
                 while (true)
                 {
-                    string responseString = String.Format(Utils.ReadEmbeddedResrourceAsString("index.html"), Program.csrf);
+                    string responseString = Utils.ReadEmbeddedResrourceAsString("index.html");
                     responseString = responseString.Replace("#URL#", localhostURI);
                     HttpListenerContext context = listener.GetContext();
                     HttpListenerRequest request = context.Request;
@@ -54,7 +54,7 @@ namespace FakeMW2SA
                         response.WriteResponse(responseString, mimeType);
                         continue;
                     }
-                    else if (request.QueryString.GetValues("action") != null && request.QueryString.GetValues("csrf") != null && request.QueryString.GetValues("csrf")[0] == Program.csrf.ToString())
+                    else if (request.QueryString.GetValues("action") != null)
                     {
                         var action = request.QueryString.GetValues("action")[0];
                         switch (action)
@@ -68,9 +68,6 @@ namespace FakeMW2SA
                                 break;
                             case "unban":
                                 Utils.Unban(request.QueryString.GetValues("ip")[0]);
-                                break;
-                            case "clearbans":
-                                Utils.Clearfirewall();
                                 break;
                             case "host":
                                 responseString = JsonConvert.SerializeObject(new JsonOutput());
