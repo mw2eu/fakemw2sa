@@ -12,9 +12,23 @@
     <script src='#URL#assets/bootstrap.min.js' crossorigin='anonymous'></script>
     <script src='#URL#assets/client.js'></script>
     <script src='#URL#assets/moment.js'></script>
+    <style>
+        button:focus {
+            outline: 0;
+            border:0;
+        }
+        button {
+            border: none;
+            border-radius: 3px;
+            margin: 3px;
+            padding-left: 6px;
+            padding-right: 6px;
+            background-color: silver;
+        }
+    </style>
 </head>
 
 <body>
-    <button type="button" class="btn btn-primary" onclick="reload()">Reload</button>
+    <button onclick='reload()'>Reload</button>
     <div id='playertable'></div>
 </body>
