@@ -142,9 +142,9 @@ function populate()
             content += "<a class='dropdown-item' href='#' onclick=copyTextToClipboard('" + text + "')>Copy</a>";
             // ban / unban
             if ((player.banned == null) || (player.banned == "False")) {
-                content += "<a class='dropdown-item' href='#' onclick=\"ban('" + player.ip + "', '" + strip(player.personaname) + "')\">Ban</a></div></td>";
+                content += "<a class='dropdown-item' href='#' onclick=\"ban('" + player.ip + "')\">Ban</a></div></td>";
             } else {
-                content += "<a class='dropdown-item' href='#' onclick=\"unban('" + player.ip + "', '" + strip(player.personaname) + "')\">Unban</a></div></td>";
+                content += "<a class='dropdown-item' href='#' onclick=\"unban('" + player.ip + "')\">Unban</a></div></td>";
             }
 
             // player VAC ban
@@ -278,22 +278,18 @@ function strip(args) {
     return s;
 }
 
-function ban(ip, name) {
-    if (confirm("Are you sure you want to kick " + name)) {
-        $.ajax("/?action=ban&ip=" + ip);
-        setTimeout(function () {
-            reload();
-        }, 125);
-    }
+function ban(ip) {
+    $.ajax("/?action=ban&ip=" + ip);
+    setTimeout(function () {
+        reload();
+    }, 125);
 }
 
-function unban(ip, name) {
-    if (confirm("Are you sure you want to unban " + name)) {
-        $.ajax("/?action=unban&ip=" + ip);
-        setTimeout(function () {
-            reload();
-        }, 125);
-    }
+function unban(ip) {
+    $.ajax("/?action=unban&ip=" + ip);
+    setTimeout(function () {
+        reload();
+    }, 125);
 }
 
 function copyTextToClipboard(text) {
