@@ -1,25 +1,28 @@
-﻿body {
-
-}
-
-.playertable {
-    max-width: 1000px;
-    margin:auto;
-}
-
-.starter-template {
-    padding: 40px 15px;
-    text-align: center;
-}
+﻿
 a {
     text-decoration: none;
+    color: black !important;
+    text-decoration: none
 }
 
+.table {
+    width: auto;
+    margin: auto;
+}
 
+td.rank {
+    width: auto;
+    white-space: nowrap;
+}
 
-a {
-    color: black!important;
-    text-decoration: none
+th.rank {
+    width: 30px;
+}
+
+td.rank, td.name, td.hours, td.vac, td.location, td.lastseen {
+    vertical-align: bottom;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .color1 {
@@ -65,86 +68,4 @@ a {
 .color9 {
     color: #343a40;
     /* text-shadow: 0 0 2px #000000; */
-}
-td#VAC{
-    max-width : 75px;
-}
-div.private {
-    background-color: #f0ad4e;
-    border-color: #eea236;
-    border-style: solid;
-    border-radius: 5px;
-    border-width: 1px;
-    padding: 3px;
-    color: white;
-    font-size: 9px;
-}
-
-div.vac {
-    background-color: #d9534f;
-    border-color: #d9534f;
-    border-style: solid;
-    border-radius: 5px;
-    border-width: 1px;
-    padding: 3px;
-    color: white;
-    font-size: 10px;
-    font-stretch: semi-condensed;
-}
-
-div.nobypass {
-    background-color: #5bc0de;
-    border-color: #5bc0de;
-    border-style: solid;
-    border-radius: 5px;
-    border-width: 1px;
-    padding: 3px;
-    color: white;
-    font-size: 10px;
-    font-stretch: semi-condensed;
-}
-
-img.rank {
-    max-height: 30px;
-    display: inline-block;
-    padding-right: 3px;
-    padding-bottom: 0px;
-}
-
-div.level {
-    font-size: 15px;
-    font-weight: 500;
-    display: inline-block;
-    margin-right: 5px;
-    vertical-align: bottom;
-
-}
-td.rank {
-    width: auto;
-    white-space: nowrap;
-}
-th.rank {
-    width: 30px;
-}
-
-.table {
-    margin: 0px;
-}
-td.rank, td.name, td.hours, td.vac, td.location, td.lastseen {
-    vertical-align: bottom;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-.table{
-    width: auto;
-    margin: auto;
-}
-.navbar{
-    max-width: 1200px;
-    margin: auto;
-    margin-bottom: 20px;
-}
-.banned{
-    background-color: dc3545;
-    color: #fff;
 }

@@ -1,9 +1,7 @@
 
-function reload()
-{
+function reload() {
     // ? https://api.jquery.com/jQuery.ajax/ > var jqxhr = $.ajax("example.php").done(function() {
-    jsonresponse = $.ajax("/?action=players").done(function ()
-    {
+    jsonresponse = $.ajax("/?action=players").done(function () {
         // https://api.jquery.com/jQuery.ajax/ > responseJSON
         data = jsonresponse.responseJSON["players"];
         host = jsonresponse.responseJSON["host"];
@@ -11,40 +9,31 @@ function reload()
 
         var partygroups = [];
 
-        for (i = 0; i < data.length; i++)
-        {
-            var temp = data.filter(function (a)
-            {
+        for (i = 0; i < data.length; i++) {
+            var temp = data.filter(function (a) {
                 return (a.partyID == i);
             });
 
-            if (temp[0] != null)
-            {
+            if (temp[0] != null) {
                 lastseens = [];
                 temp2 = [];
 
-                temp.forEach(function (item)
-                {
+                temp.forEach(function (item) {
                     lastseens.push(item.lastseen);
                 });
 
                 biggest = Math.max(...lastseens);
 
-                temp.forEach(function (item)
-                {
-                    if (item.lastseen != biggest)
-                    {
+                temp.forEach(function (item) {
+                    if (item.lastseen != biggest) {
                         item.partyID = 0;
                         partygroups.push([item]);
-                    }
-                    else
-                    {
+                    } else {
                         temp2.push(item);
                     }
                 });
 
-                if (temp2.length > 0)
-                {
+                if (temp2.length > 0) {
                     partygroups.push(temp2);
                 }
             }
@@ -77,7 +66,7 @@ function reload()
 
 function vac(player) {
     if (player.vacbanned == 1) {
-        return "VAC (" + player.numberofvacbans + ") " + Math.floor((new Date).getTime() / 86400000 - player.dateoflastban / 86400) + "d";
+        return "(" + player.numberofvacbans + ") " + Math.floor((new Date).getTime() / 86400000 - player.dateoflastban / 86400) + "d";
     }
     else {
         return "False";
@@ -136,10 +125,10 @@ function populate()
             content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
             // view profile
             content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>Profile</a>";
-            // copy user info content
-            var text = `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
-            // copy user info button
-            content += "<a class='dropdown-item' href='#' onclick=copyTextToClipboard('" + text + "')>Copy</a>";
+            // copy user info
+            content += "<a class='dropdown-item' href='#' onclick=copyTextToClipboard('";
+            content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+            content += "')>Copy</a>";
             // ban / unban
             if ((player.banned == null) || (player.banned == "False")) {
                 content += "<a class='dropdown-item' href='#' onclick=\"ban('" + player.ip + "')\">Ban</a></div></td>";
@@ -148,27 +137,24 @@ function populate()
             }
 
             // player VAC ban
-            if (player.vacbanned == 1)
-            {
-                if (player.vacbypass == 0)
-                {
-                    content += '<td class="vac"><button style="background-color: green">' + vac(player) + '</button></td>';
+            if (player.vacbanned == 1) {
+                if (player.vacbypass == 0) {
+                    colorvac = "lightgreen";
+                } else if (player.vacbypass == 1) {
+                    colorvac = "lightpink";
+                } else if (player.vacbypass == 2) {
+                    colorvac = "lightcoral";
                 }
-                if (player.vacbypass == 1)
-                {
-                    content += '<td class="vac"><div class="btn btn-warning btn-sm">' + vac(player) + '</div></td>';
-                }
-                if (player.vacbypass == 2)
-                {
-                    content += '<td class="vac"><div class="btn btn-danger btn-sm">' + vac(player) + '</div></td>';
-                }
+            } else {
+                colorvac = "lightblue";
             }
-            else
-            {
-                content += '<td class="vac"><button style="background-color:lightblue">' + vac(player) + '</button></td>';
-            }
+            content += "<td class='vac'><button style='background-color:";
+            content += colorvac;
+            content += "'>";
+            content += vac(player)
+            content += "</button></td>";
 
-            //Player location
+            // player location
             if (player.ip == "0.0.0.0" || player.ip == "1.3.3.7" || player.ip == "127.0.0.1" || player.ip == "255.255.255.255") {
                 content += '<td class="location"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></td>';
             } else {
@@ -178,8 +164,11 @@ function populate()
                     content += '<td class="location"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></td>';
                 }
             }
+
+            // player ip
             content += '<td class="ip">' + player.ip + '</td>';
-            //Last Seen
+
+            // player seen
             content += '<td class="lastseen">' + moment(player.lastseen * 1000).fromNow() + '</td>';
             $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
         }
