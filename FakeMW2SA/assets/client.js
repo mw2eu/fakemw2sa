@@ -80,11 +80,11 @@ function vacban(player) {
 }
 
 function playerlocation(player) {
-    result = "";
+    let result = ""
     if (player.country != null) {
-        result += player.country;
+        result += player.country
     }
-    return result;
+    return result
 }
 
 function checkban(player) {
@@ -123,7 +123,16 @@ function populate() {
             content += "<tr class='" + player.partyID + "'>";
 
             // player name
-            content += "<td class='name " + checkban(player) + "'><a class='dropdown-toggle " + playerhost(player) + "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>" + escape(player.personaname) + "</span></a>";
+            content += "<td class='name"
+            if (player.banned == "True") {
+                content += " bg-danger"
+            }
+            content += "'><a class='dropdown-toggle "
+            content += playerhost(player)
+            content += "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>"
+            content += escape(player.personaname)
+            content += "</span></a>"
+
             // dropdown
             content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
             // view profile
