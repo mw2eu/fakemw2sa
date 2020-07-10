@@ -1,6 +1,7 @@
 
 function reload() {
-    // ? https://api.jquery.com/jQuery.ajax/ > var jqxhr = $.ajax("example.php").done(function() {
+    // ? https://api.jquery.com/jQuery.ajax/
+    // var jqxhr = $.ajax("example.php").done(function () {
     jsonresponse = $.ajax("/?action=players").done(function () {
         // https://api.jquery.com/jQuery.ajax/ > responseJSON
         data = jsonresponse.responseJSON["players"];
@@ -61,16 +62,21 @@ function reload() {
         data = newdata;
 
         populate();
-    })
+    });
 }
 
-function vac(player) {
+function vacban(player) {
+    let result = ""
     if (player.vacbanned == 1) {
-        return "(" + player.numberofvacbans + ") " + Math.floor((new Date).getTime() / 86400000 - player.dateoflastban / 86400) + "d";
+        result += "("
+        result += player.numberofvacbans
+        result += ") "
+        result += Math.floor((new Date).getTime() / 86400000 - player.dateoflastban / 86400)
+        result += "d"
+    } else {
+        result += "False"
     }
-    else {
-        return "False";
-    }
+    return result
 }
 
 function playerlocation(player) {
@@ -97,9 +103,8 @@ function playerhost(player) {
     }
 }
 
-function populate()
-{
-    $('#playertable').children().remove();
+function populate() {
+    $("#playertable").children().remove();
 
     var content = `
         <table class="table table-striped table-hover table-bordered" class="players">
@@ -113,10 +118,8 @@ function populate()
                 </tr>
             </thead>`;
 
-    for (player of data)
-    {
-        if (player.memberjoin == false)
-        {
+    for (player of data) {
+        if (player.memberjoin == false) {
             content += "<tr class='" + player.partyID + "'>";
 
             // player name
@@ -151,7 +154,7 @@ function populate()
             content += "<td class='vac'><button style='background-color:";
             content += colorvac;
             content += "'>";
-            content += vac(player)
+            content += vacban(player)
             content += "</button></td>";
 
             // player location
@@ -190,10 +193,8 @@ function populate()
     var parties = [];
     var colors = ["table-info", "table-warning", "table-success", "table-primary", "table-danger"];
 
-    for (i = 0; i < data.length - 1; i++)
-    {
-        if (data[i]["partyID"] == data[i + 1]["partyID"] && data[i]["partyID"] != 1)
-        {
+    for (i = 0; i < data.length - 1; i++) {
+        if (data[i]["partyID"] == data[i + 1]["partyID"] && data[i]["partyID"] != 1) {
             parties.indexOf(data[i]["partyID"]) === -1 ? parties.push(data[i]["partyID"]) : nothing();
         }
     }
