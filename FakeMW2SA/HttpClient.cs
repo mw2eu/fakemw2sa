@@ -72,6 +72,9 @@ namespace FakeMW2SA
                             case "host":
                                 responseString = JsonConvert.SerializeObject(new JsonOutput());
                                 break;
+                            case "message":
+                                Console.WriteLine(request.QueryString.GetValues("messagetext")[0]);
+                                break;
                             default:
                                 break;
                         }

@@ -13,10 +13,11 @@
     <script src='#URL#assets/client.js'></script>
     <script src='#URL#assets/moment.js'></script>
     <style>
+        /* for Firefox */
         button:focus {
             outline: 0;
-            border:0;
         }
+        /* make button have rounded corners like Bootstrap */
         button {
             border: none;
             border-radius: 3px;
@@ -25,17 +26,50 @@
             padding-right: 6px;
             background-color: silver;
         }
-        .table {
-            width: auto;
-            margin: auto;
+        /* give tables some space */
+        table {
+            table-layout: fixed;
+            margin-left: auto;
+            margin-right: auto;
         }
-        a {
-            text-decoration: none;
+        th, td {
+            /* white spaces */
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-bottom: 4px;
+            border-left: 4px solid white;
+            border-right: 4px solid white;
+        }
+        th {
+            /* head */
+            color: white;
+            background-color: #454A4D;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        td {
+            border-bottom: 2px solid lightgray; /*#E1E1E1;*/
         }
     </style>
 </head>
 
 <body>
     <button onclick='reload()'>Reload</button>
-    <div id='playertable'></div>
+    <!-- message -->
+    <input type="text" id="messageid">
+    <button onclick="message(document.getElementById('messageid').value)">Add</button>
+    <!-- message end -->
+    <table id='playertable' class='players'>
+        <thead style="background-color:silver">
+            <tr>
+                <th>Name</th>
+                <th>VAC</th>
+                <th>Location</th>
+                <th>IP</th>
+                <th>Last seen</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </body>

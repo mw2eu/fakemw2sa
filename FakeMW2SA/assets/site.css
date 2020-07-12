@@ -5,20 +5,6 @@ a {
     text-decoration: none
 }
 
-.table {
-    width: auto;
-    margin: auto;
-}
-
-td.rank {
-    width: auto;
-    white-space: nowrap;
-}
-
-th.rank {
-    width: 30px;
-}
-
 td.rank, td.name, td.hours, td.vac, td.location, td.lastseen {
     vertical-align: bottom;
     padding-top: 5px;

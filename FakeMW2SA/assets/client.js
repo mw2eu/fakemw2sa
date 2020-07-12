@@ -1,4 +1,25 @@
 
+function ban(ip) {
+    $.ajax("/?action=ban&ip=" + ip);
+    setTimeout(function () {
+        reload();
+    }, 125);
+}
+
+function unban(ip) {
+    $.ajax("/?action=unban&ip=" + ip);
+    setTimeout(function () {
+        reload();
+    }, 125);
+}
+
+function message(messagevar) {
+    $.ajax("/?action=message&messagetext=" + messagevar);
+    setTimeout(function () {
+        reload();
+    }, 125);
+}
+
 function reload() {
     // ? https://api.jquery.com/jQuery.ajax/
     // var jqxhr = $.ajax("example.php").done(function () {
@@ -7,6 +28,7 @@ function reload() {
         data = jsonresponse.responseJSON["players"];
         host = jsonresponse.responseJSON["host"];
         ipaddresses = jsonresponse.responseJSON["ipaddresses"];
+        message = jsonresponse.responseJSON["message"];
 
         var partygroups = [];
 
@@ -104,32 +126,22 @@ function playerhost(player) {
 }
 
 function populate() {
-    $("#playertable").children().remove();
+    $("#playertable tbody").children().remove();
 
-    var content = `
-        <table class="table table-striped table-hover table-bordered" class="players">
-            <thead style="background-color:silver">
-                <tr>
-                    <th>Name</th>
-                    <th>VAC</th>
-                    <th>Location</th>
-                    <th>IP</th>
-                    <th>Last seen</th>
-                </tr>
-            </thead>`;
+    var content = "";
 
     for (player of data) {
         if (player.memberjoin == false) {
             content += "<tr class='" + player.partyID + "'>";
 
             // player name
-            content += "<td class='name"
+            content += "<td class='name' "
             if (player.banned == "True") {
-                content += " bg-danger"
+                content += "style='background-color:darksalmon'"
             }
-            content += "'><a class='dropdown-toggle "
+            content += "><a class='dropdown-toggle "
             content += playerhost(player)
-            content += "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><span>"
+            content += "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown'><span>"
             content += escape(player.personaname)
             content += "</span></a>"
 
@@ -186,13 +198,11 @@ function populate() {
         }
     }
 
-    content += '</table>';
-
     function nothing() {
         return;
     }
 
-    $('#playertable').append(content);
+    $("#playertable tbody").append(content);
 
     //tag the host
     $("a.host").append('<span class="badge badge-info">host</span>');
@@ -275,20 +285,6 @@ function strip(args) {
         }
     }
     return s;
-}
-
-function ban(ip) {
-    $.ajax("/?action=ban&ip=" + ip);
-    setTimeout(function () {
-        reload();
-    }, 125);
-}
-
-function unban(ip) {
-    $.ajax("/?action=unban&ip=" + ip);
-    setTimeout(function () {
-        reload();
-    }, 125);
 }
 
 function copyTextToClipboard(text) {
