@@ -89,9 +89,13 @@ function populate() {
             content += "')>Copy</a>";
             // ban / unban
             if ((player.banned == null) || (player.banned == "False")) {
-                content += "<a class='dropdown-item' href='#' onclick=\"ban('" + player.ip + "')\">Ban</a></div></td>";
+                content += "<a class='dropdown-item' href='#' onclick=\"ban('"
+                content += player.ip
+                content += "')\">Ban</a></div></td>"
             } else {
-                content += "<a class='dropdown-item' href='#' onclick=\"unban('" + player.ip + "')\">Unban</a></div></td>";
+                content += "<a class='dropdown-item' href='#' onclick=\"unban('"
+                content += player.ip
+                content += "')\">Unban</a></div></td>"
             }
 
             // player VAC ban
