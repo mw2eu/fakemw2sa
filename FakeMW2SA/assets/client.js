@@ -189,15 +189,7 @@ function populate() {
             content += "</button></td>";
 
             // player location
-            if (player.ip == "0.0.0.0" || player.ip == "1.3.3.7" || player.ip == "127.0.0.1" || player.ip == "255.255.255.255") {
-                content += '<td class="location"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></td>';
-            } else {
-                if (player.ip == player.memberjoinip || player.memberjoinip == null) {
-                    content += '<td class="location">' + playerlocation(player) + '</td>';
-                } else {
-                    content += '<td class="location"><div class="btn btn-danger btn-sm">' + playerlocation(player) + '</div></td>';
-                }
-            }
+            content += '<td class="location">' + playerlocation(player) + '</td>'
 
             // player ip
             content += '<td class="ip">' + player.ip + '</td>';
