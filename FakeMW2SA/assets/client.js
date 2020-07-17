@@ -1,64 +1,4 @@
 
-function strip(args) {
-    if ("string" !== typeof args) {
-        return "";
-    }
-    if ("" == args.replace(/\^[0-9]/g, "").replace(/ /g, "")) {
-        return "Unnamed player";
-    }
-    args = args.replace(/&/g, "");
-    args = args.replace(/>/g, "");
-    args = args.replace(/</g, "");
-    args = args.replace(/'/g, "\\&apos;");
-    args = args.replace(/"/g, "\\&quot;");
-    var i = 0;
-    s = ""
-    for (; i < args.length; i++) {
-        if ("^" == args[i] && args[i + 1]) {
-            var checked = args.charCodeAt(i + 1);
-            if (48 <= checked && 57 >= checked) {
-                i++;
-            } else {
-                s += args[i];
-            }
-        } else {
-            s += args[i];
-        }
-    }
-    return s;
-}
-
-function escape(args) {
-    if ("string" !== typeof args) {
-        return "";
-    }
-    if ("" == args.replace(/\^[0-9]/g, "").replace(/ /g, "")) {
-        return "Unnamed player";
-    }
-    args = args.replace(/&/g, "&amp;");
-    args = args.replace(/>/g, "&gt;");
-    args = args.replace(/</g, "&lt;");
-    args = args.replace(/'/g, "\&apos;");
-    args = args.replace(/"/g, "\&quot;");
-    var s = "<span>";
-    var i = 0;
-    for (; i < args.length; i++) {
-        if ("^" == args[i] && args[i + 1]) {
-            var checked = args.charCodeAt(i + 1);
-            if (48 <= checked && 57 >= checked) {
-                s += '</span><span class="color' + args[i + 1] + '">';
-                i++;
-            } else {
-                s += args[i];
-            }
-        } else {
-            s += args[i];
-        }
-    }
-    s = (s + "</span>").replace(/<span><\/span>/g, "");
-    return s = s.replace(/<span class=\"color[0-9]\"><\/span>/g, "");
-}
-
 function ban(ip) {
     $.ajax("/?action=ban&ip=" + ip);
     setTimeout(function () {
@@ -117,22 +57,6 @@ function playerhost(player) {
     } else {
         return "";
     }
-}
-
-function copyTextToClipboard(text) {
-    var textArea = document.createElement("textarea");
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-    } catch (err) {
-        console.log('Oops, unable to copy');
-    }
-    document.body.removeChild(textArea);
 }
 
 function populate() {
@@ -294,6 +218,82 @@ function reload() {
 
         populate();
     });
+}
+
+function escape(args) {
+    if ("string" !== typeof args) {
+        return "";
+    }
+    if ("" == args.replace(/\^[0-9]/g, "").replace(/ /g, "")) {
+        return "Unnamed player";
+    }
+    args = args.replace(/&/g, "&amp;");
+    args = args.replace(/>/g, "&gt;");
+    args = args.replace(/</g, "&lt;");
+    args = args.replace(/'/g, "\&apos;");
+    args = args.replace(/"/g, "\&quot;");
+    var s = "<span>";
+    var i = 0;
+    for (; i < args.length; i++) {
+        if ("^" == args[i] && args[i + 1]) {
+            var checked = args.charCodeAt(i + 1);
+            if (48 <= checked && 57 >= checked) {
+                s += '</span><span class="color' + args[i + 1] + '">';
+                i++;
+            } else {
+                s += args[i];
+            }
+        } else {
+            s += args[i];
+        }
+    }
+    s = (s + "</span>").replace(/<span><\/span>/g, "");
+    return s = s.replace(/<span class=\"color[0-9]\"><\/span>/g, "");
+}
+
+function strip(args) {
+    if ("string" !== typeof args) {
+        return "";
+    }
+    if ("" == args.replace(/\^[0-9]/g, "").replace(/ /g, "")) {
+        return "Unnamed player";
+    }
+    args = args.replace(/&/g, "");
+    args = args.replace(/>/g, "");
+    args = args.replace(/</g, "");
+    args = args.replace(/'/g, "\\&apos;");
+    args = args.replace(/"/g, "\\&quot;");
+    var i = 0;
+    s = ""
+    for (; i < args.length; i++) {
+        if ("^" == args[i] && args[i + 1]) {
+            var checked = args.charCodeAt(i + 1);
+            if (48 <= checked && 57 >= checked) {
+                i++;
+            } else {
+                s += args[i];
+            }
+        } else {
+            s += args[i];
+        }
+    }
+    return s;
+}
+
+function copyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+    } catch (err) {
+        console.log('Oops, unable to copy');
+    }
+    document.body.removeChild(textArea);
 }
 
 $(document).ready(function () {
