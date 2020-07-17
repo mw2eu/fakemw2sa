@@ -140,7 +140,7 @@ function populate() {
 
     var content = "";
 
-    for (player of data) {
+    for (player of playersdata) {
         if (player.memberjoin == false) {
             content += "<tr class='" + player.partyID + "'>";
 
@@ -222,9 +222,9 @@ function populate() {
     var parties = [];
     var colors = ["table-info", "table-warning", "table-success", "table-primary", "table-danger"];
 
-    for (i = 0; i < data.length - 1; i++) {
-        if (data[i]["partyID"] == data[i + 1]["partyID"] && data[i]["partyID"] != 1) {
-            parties.indexOf(data[i]["partyID"]) === -1 ? parties.push(data[i]["partyID"]) : nothing();
+    for (i = 0; i < playersdata.length - 1; i++) {
+        if (playersdata[i]["partyID"] == playersdata[i + 1]["partyID"] && playersdata[i]["partyID"] != 1) {
+            parties.indexOf(playersdata[i]["partyID"]) === -1 ? parties.push(playersdata[i]["partyID"]) : nothing();
         }
     }
 
