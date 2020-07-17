@@ -220,8 +220,10 @@ namespace FakeMW2SA
                                     player.country = each["country"].ToString();
                                 }
                                 if (each["region"].Type != JTokenType.Null) {
-                                    player.region = each["region"].ToString(); }
-                                if (each["city"].Type != JTokenType.Null) { player.city = each["city"].ToString();
+                                    player.region = each["region"].ToString();
+                                }
+                                if (each["city"].Type != JTokenType.Null) {
+                                    player.city = each["city"].ToString();
                                 }
                                 if (each["countrycode"].Type != JTokenType.Null) {
                                     player.countrycode = each["countrycode"].ToString();
