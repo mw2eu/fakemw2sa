@@ -13,8 +13,9 @@ function unban(ip) {
     }, 125);
 }
 
-function message(messagevar) {
+function submitmessage(messagevar) {
     $.ajax("/?action=message&messagetext=" + messagevar);
+    console.log(messagevar)
     setTimeout(function () {
         reload();
     }, 125);

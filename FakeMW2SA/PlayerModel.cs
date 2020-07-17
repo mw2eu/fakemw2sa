@@ -65,7 +65,9 @@ namespace FakeMW2SA
                     host = Program.ipaddresses.GroupBy(i => i).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).First();
                     ipaddresses = Program.ipaddresses.Distinct().ToList();
                 }
-            } catch {
+            }
+            catch
+            {
                 
             }
         }
@@ -76,7 +78,6 @@ namespace FakeMW2SA
         public int apicalls { get; set; } = Program.apicalls;
         public int partystatecount { get; set; } = Program.partystatecount;
         public int memberjoincount { get; set; } = Program.memberjoincount;
-
-}
+    }
 }
 
