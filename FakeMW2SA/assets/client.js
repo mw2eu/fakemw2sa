@@ -1,4 +1,64 @@
 
+function strip(args) {
+    if ("string" !== typeof args) {
+        return "";
+    }
+    if ("" == args.replace(/\^[0-9]/g, "").replace(/ /g, "")) {
+        return "Unnamed player";
+    }
+    args = args.replace(/&/g, "");
+    args = args.replace(/>/g, "");
+    args = args.replace(/</g, "");
+    args = args.replace(/'/g, "\\&apos;");
+    args = args.replace(/"/g, "\\&quot;");
+    var i = 0;
+    s = ""
+    for (; i < args.length; i++) {
+        if ("^" == args[i] && args[i + 1]) {
+            var checked = args.charCodeAt(i + 1);
+            if (48 <= checked && 57 >= checked) {
+                i++;
+            } else {
+                s += args[i];
+            }
+        } else {
+            s += args[i];
+        }
+    }
+    return s;
+}
+
+function escape(args) {
+    if ("string" !== typeof args) {
+        return "";
+    }
+    if ("" == args.replace(/\^[0-9]/g, "").replace(/ /g, "")) {
+        return "Unnamed player";
+    }
+    args = args.replace(/&/g, "&amp;");
+    args = args.replace(/>/g, "&gt;");
+    args = args.replace(/</g, "&lt;");
+    args = args.replace(/'/g, "\&apos;");
+    args = args.replace(/"/g, "\&quot;");
+    var s = "<span>";
+    var i = 0;
+    for (; i < args.length; i++) {
+        if ("^" == args[i] && args[i + 1]) {
+            var checked = args.charCodeAt(i + 1);
+            if (48 <= checked && 57 >= checked) {
+                s += '</span><span class="color' + args[i + 1] + '">';
+                i++;
+            } else {
+                s += args[i];
+            }
+        } else {
+            s += args[i];
+        }
+    }
+    s = (s + "</span>").replace(/<span><\/span>/g, "");
+    return s = s.replace(/<span class=\"color[0-9]\"><\/span>/g, "");
+}
+
 function ban(ip) {
     $.ajax("/?action=ban&ip=" + ip);
     setTimeout(function () {
@@ -19,73 +79,6 @@ function submitmessage(messagevar) {
     setTimeout(function () {
         reload();
     }, 125);
-}
-
-function reload() {
-    // ? https://api.jquery.com/jQuery.ajax/
-    // var jqxhr = $.ajax("example.php").done(function () {
-    jsonresponse = $.ajax("/?action=players").done(function () {
-        // https://api.jquery.com/jQuery.ajax/ > responseJSON
-        data = jsonresponse.responseJSON["players"];
-        host = jsonresponse.responseJSON["host"];
-        ipaddresses = jsonresponse.responseJSON["ipaddresses"];
-        message = jsonresponse.responseJSON["message"];
-
-        var partygroups = [];
-
-        for (i = 0; i < data.length; i++) {
-            var temp = data.filter(function (a) {
-                return (a.partyID == i);
-            });
-
-            if (temp[0] != null) {
-                lastseens = [];
-                temp2 = [];
-
-                temp.forEach(function (item) {
-                    lastseens.push(item.lastseen);
-                });
-
-                biggest = Math.max(...lastseens);
-
-                temp.forEach(function (item) {
-                    if (item.lastseen != biggest) {
-                        item.partyID = 0;
-                        partygroups.push([item]);
-                    } else {
-                        temp2.push(item);
-                    }
-                });
-
-                if (temp2.length > 0) {
-                    partygroups.push(temp2);
-                }
-            }
-        }
-
-        function sortem(array) {
-            array.sort(function (a, b) {
-                return (b.lastseen - a.lastseen);
-            });
-        }
-
-        partygroups.forEach(sortem);
-
-        partygroups.sort(function (a, b) {
-            return (b[0].lastseen - a[0].lastseen);
-        })
-
-        newdata = []
-        for (a = 0; a < partygroups.length; a++) {
-            for (i = 0; i < partygroups[a].length; i++) {
-                newdata.push(partygroups[a][i]);
-            }
-        }
-
-        data = newdata;
-
-        populate();
-    });
 }
 
 function vacban(player) {
@@ -124,6 +117,22 @@ function playerhost(player) {
     } else {
         return "";
     }
+}
+
+function copyTextToClipboard(text) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+    } catch (err) {
+        console.log('Oops, unable to copy');
+    }
+    document.body.removeChild(textArea);
 }
 
 function populate() {
@@ -228,80 +237,71 @@ function populate() {
     });
 }
 
-function escape(args) {
-    if ("string" !== typeof args) {
-        return "";
-    }
-    if ("" == args.replace(/\^[0-9]/g, "").replace(/ /g, "")) {
-        return "Unnamed player";
-    }
-    args = args.replace(/&/g, "&amp;");
-    args = args.replace(/>/g, "&gt;");
-    args = args.replace(/</g, "&lt;");
-    args = args.replace(/'/g, "\&apos;");
-    args = args.replace(/"/g, "\&quot;");
-    var s = "<span>";
-    var i = 0;
-    for (; i < args.length; i++) {
-        if ("^" == args[i] && args[i + 1]) {
-            var checked = args.charCodeAt(i + 1);
-            if (48 <= checked && 57 >= checked) {
-                s += '</span><span class="color' + args[i + 1] + '">';
-                i++;
-            } else {
-                s += args[i];
-            }
-        } else {
-            s += args[i];
-        }
-    }
-    s = (s + "</span>").replace(/<span><\/span>/g, "");
-    return s = s.replace(/<span class=\"color[0-9]\"><\/span>/g, "");
-}
+function reload() {
+    // ? https://api.jquery.com/jQuery.ajax/
+    // var jqxhr = $.ajax("example.php").done(function () {
+    jsonresponse = $.ajax("/?action=players").done(function () {
+        // https://api.jquery.com/jQuery.ajax/ > responseJSON
+        playersdata = jsonresponse.responseJSON["players"];
+        host = jsonresponse.responseJSON["host"];
+        ipaddresses = jsonresponse.responseJSON["ipaddresses"];
+        message = jsonresponse.responseJSON["message"];
 
-function strip(args) {
-    if ("string" !== typeof args) {
-        return "";
-    }
-    if ("" == args.replace(/\^[0-9]/g, "").replace(/ /g, "")) {
-        return "Unnamed player";
-    }
-    args = args.replace(/&/g, "");
-    args = args.replace(/>/g, "");
-    args = args.replace(/</g, "");
-    args = args.replace(/'/g, "\\&apos;");
-    args = args.replace(/"/g, "\\&quot;");
-    var i = 0;
-    s = ""
-    for (; i < args.length; i++) {
-        if ("^" == args[i] && args[i + 1]) {
-            var checked = args.charCodeAt(i + 1);
-            if (48 <= checked && 57 >= checked) {
-                i++;
-            } else {
-                s += args[i];
-            }
-        } else {
-            s += args[i];
-        }
-    }
-    return s;
-}
+        var partygroups = [];
 
-function copyTextToClipboard(text) {
-    var textArea = document.createElement("textarea");
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-    } catch (err) {
-        console.log('Oops, unable to copy');
-    }
-    document.body.removeChild(textArea);
+        for (i = 0; i < playersdata.length; i++) {
+            var temp = playersdata.filter(function (a) {
+                return (a.partyID == i);
+            });
+
+            if (temp[0] != null) {
+                lastseens = [];
+                temp2 = [];
+
+                temp.forEach(function (item) {
+                    lastseens.push(item.lastseen);
+                });
+
+                biggest = Math.max(...lastseens);
+
+                temp.forEach(function (item) {
+                    if (item.lastseen != biggest) {
+                        item.partyID = 0;
+                        partygroups.push([item]);
+                    } else {
+                        temp2.push(item);
+                    }
+                });
+
+                if (temp2.length > 0) {
+                    partygroups.push(temp2);
+                }
+            }
+        }
+
+        function sortem(array) {
+            array.sort(function (a, b) {
+                return (b.lastseen - a.lastseen);
+            });
+        }
+
+        partygroups.forEach(sortem);
+
+        partygroups.sort(function (a, b) {
+            return (b[0].lastseen - a[0].lastseen);
+        })
+
+        newdata = []
+        for (a = 0; a < partygroups.length; a++) {
+            for (i = 0; i < partygroups[a].length; i++) {
+                newdata.push(partygroups[a][i]);
+            }
+        }
+
+        playersdata = newdata;
+
+        populate();
+    });
 }
 
 $(document).ready(function () {
