@@ -33,9 +33,6 @@ namespace FakeMW2SA
         public int cssourcehours { get; set; }
         public int lastseen { get; set; }
         public string country { get; set; }
-        public string region { get; set; }
-        public string city { get; set; }
-        public string countrycode { get; set; }
         public int playerprimaryid { get; set; }
         public string level { get; set; }
         public string presteige { get; set; }

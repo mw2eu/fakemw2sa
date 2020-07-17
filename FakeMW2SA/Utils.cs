@@ -219,15 +219,6 @@ namespace FakeMW2SA
                                 if (each["country"].Type != JTokenType.Null) {
                                     player.country = each["country"].ToString();
                                 }
-                                if (each["region"].Type != JTokenType.Null) {
-                                    player.region = each["region"].ToString();
-                                }
-                                if (each["city"].Type != JTokenType.Null) {
-                                    player.city = each["city"].ToString();
-                                }
-                                if (each["countrycode"].Type != JTokenType.Null) {
-                                    player.countrycode = each["countrycode"].ToString();
-                                }
                                 if (each["vacbypass"].Type != JTokenType.Null) {
                                     player.vacbypass = Convert.ToInt32(each["vacbypass"]);
                                 }
