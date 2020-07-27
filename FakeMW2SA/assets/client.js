@@ -83,21 +83,26 @@ function populate() {
             content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
             // view profile
             content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>Profile</a>";
-            // ban / unban
-            if ((player.banned == null) || (player.banned == "False")) {
-                content += "<a class='dropdown-item' href='#' onclick=\"ban('"
-                content += player.ip
-                content += "')\">Ban</a></div></td>"
-            } else {
-                content += "<a class='dropdown-item' href='#' onclick=\"unban('"
-                content += player.ip
-                content += "')\">Unban</a></div></td>"
-            }
 
-            // Copy
-            content += "<td class='vac'><button onclick=copyTextToClipboard('";
+            content += "</div></td>";
+
+            // ban / unban
+            content += "<td>";
+            if ((player.banned == null) || (player.banned == "False")) {
+                content += "<button onclick=\"ban('"
+                content += player.ip
+                content += "')\">Ban</button>"
+            } else {
+                content += "<button onclick=\"unban('"
+                content += player.ip
+                content += "')\">Unban</button>"
+            }
+            content += "</td>";
+
+            // Copy (copies some information to the clipboard of the os)
+            content += "<td><button onclick=copyTextToClipboard('";
             content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
-            content += "')>Copy</button></td > ";
+            content += "')>Copy</button></td> ";
 
             // player VAC ban
             if (player.vacbanned == 1) {
