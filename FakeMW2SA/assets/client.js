@@ -66,10 +66,10 @@ function populate() {
 
     for (player of playersdata) {
         if (player.memberjoin == false) {
-            content += "<tr class='" + player.partyID + "'>";
+            content += "<tr>";
 
             // player name with link to Steam profile
-            content += "<td class='name' "
+            content += "<td "
             if (player.banned == "True") {
                 content += "style='background-color:darksalmon'"
             }
@@ -120,14 +120,22 @@ function populate() {
             content += "</button></td>";
 
             // player location
-            content += '<td class="location">' + playerlocation(player) + '</td>'
+            content += "<td>";
+            content += playerlocation(player);
+            content += "</td>";
 
             // player ip
-            content += '<td class="ip">' + player.ip + '</td>';
+            content += "<td>";
+            content += player.ip;
+            content += "</td>";
 
             // player seen
-            content += '<td class="lastseen">' + moment(player.lastseen * 1000).fromNow() + '</td>';
+            content += "<td>";
+            content += moment(player.lastseen * 1000).fromNow();
+            content += "</td>";
             $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
+
+            content += "</tr>";
         }
     }
 
