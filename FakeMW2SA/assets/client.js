@@ -83,10 +83,6 @@ function populate() {
             content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
             // view profile
             content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>Profile</a>";
-            // copy user info
-            content += "<a class='dropdown-item' href='#' onclick=copyTextToClipboard('";
-            content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
-            content += "')>Copy</a>";
             // ban / unban
             if ((player.banned == null) || (player.banned == "False")) {
                 content += "<a class='dropdown-item' href='#' onclick=\"ban('"
@@ -97,6 +93,11 @@ function populate() {
                 content += player.ip
                 content += "')\">Unban</a></div></td>"
             }
+
+            // Copy
+            content += "<td class='vac'><button onclick=copyTextToClipboard('";
+            content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+            content += "')>Copy</button></td > ";
 
             // player VAC ban
             if (player.vacbanned == 1) {
