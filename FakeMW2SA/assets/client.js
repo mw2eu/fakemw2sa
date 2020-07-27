@@ -113,7 +113,7 @@ function populate() {
             } else {
                 colorvac = "lightblue";
             }
-            content += "<td class='vac'><button style='background-color:";
+            content += "<td><button style='background-color:";
             content += colorvac;
             content += "'>";
             content += vacban(player)
