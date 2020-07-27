@@ -78,7 +78,7 @@ function populate() {
             content += "'><span>";
             content += escape(player.personaname)
             content += "</span></a>"
-            content += "<button>";
+            content += "<button style='background-color:mediumpurple'>";
             content += playerhost(player);
             content += "</button>";
             content += "</td>";

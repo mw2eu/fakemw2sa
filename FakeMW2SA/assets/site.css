@@ -6,9 +6,6 @@ a {
 }
 
 td.rank, td.name, td.hours, td.vac, td.location, td.lastseen {
-    vertical-align: bottom;
-    padding-top: 5px;
-    padding-bottom: 5px;
 }
 
 .color1 {
