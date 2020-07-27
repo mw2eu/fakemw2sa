@@ -68,23 +68,20 @@ function populate() {
         if (player.memberjoin == false) {
             content += "<tr class='" + player.partyID + "'>";
 
-            // player name
+            // player name with link to Steam profile
             content += "<td class='name' "
             if (player.banned == "True") {
                 content += "style='background-color:darksalmon'"
             }
-            content += "><a class='dropdown-toggle "
-            content += playerhost(player)
-            content += "' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown'><span>"
+            content += "><a target='_blank' href='";
+            content += player.profileurl;
+            content += "'><span>";
             content += escape(player.personaname)
             content += "</span></a>"
-
-            // dropdown
-            content += "<div class='dropdown-menu' aria-labelledby='dropdownMenuLink'>";
-            // view profile
-            content += "<a class='dropdown-item' href='" + player.profileurl + "' target='_blank'>Profile</a>";
-
-            content += "</div></td>";
+            content += "<button>";
+            content += playerhost(player);
+            content += "</button>";
+            content += "</td>";
 
             // ban / unban
             content += "<td>";
