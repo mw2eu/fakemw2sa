@@ -69,11 +69,7 @@ function populate() {
             content += "<tr>";
 
             // player name with link to Steam profile
-            content += "<td "
-            if (player.banned == "True") {
-                content += "style='background-color:darksalmon'"
-            }
-            content += "><a target='_blank' href='";
+            content += "<td><a target='_blank' href='";
             content += player.profileurl;
             content += "'><span>";
             content += escape(player.personaname)
