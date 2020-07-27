@@ -307,7 +307,3 @@ function copyTextToClipboard(text) {
     }
     document.body.removeChild(textArea);
 }
-
-$(document).ready(function () {
-    $('.dropdown-toggle').dropdown();
-});
