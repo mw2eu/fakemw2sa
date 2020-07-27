@@ -145,9 +145,6 @@ function populate() {
 
     $("#playertable tbody").append(content);
 
-    //tag the host
-    $("a.host").append('<span class="badge badge-info">host</span>');
-
     //apply party colours
     var color = 0;
     var parties = [];
