@@ -35,8 +35,9 @@ namespace FakeMW2SA
                 {
                     player.banned = "False";
                 }
-                Console.WriteLine("route delete " + ip + " 12.34.56.78");
-                RunCommand("route delete " + ip + " 12.34.56.78");
+                string banRemove = "route delete " + ip + " 0.0.0.0";
+                Console.WriteLine(banRemove);
+                RunCommand(banRemove);
             }
         }
         public static void Ban(string ip)
@@ -48,8 +49,9 @@ namespace FakeMW2SA
                 {
                     player.banned = "True";
                 }
-                Console.WriteLine("route add " + ip + " 12.34.56.78");
-                RunCommand("route add " + ip + " 12.34.56.78 IF 1");
+                string banAdd = "route add " + ip + " 0.0.0.0 IF 1";
+                Console.WriteLine(banAdd);
+                RunCommand(banAdd);
             }
 
         }
