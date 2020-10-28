@@ -119,9 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="5832406b04c416771fe0b20549b10d0dc7c679de.ico" />
-    <EmbeddedResource Include="assets\bootstrap.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="assets\client.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -135,9 +132,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="assets\popper.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="assets\bootstrap.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="index.html">
