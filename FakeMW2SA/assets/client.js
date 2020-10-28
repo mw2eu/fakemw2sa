@@ -43,14 +43,6 @@ function playerlocation(player) {
     return result
 }
 
-function checkban(player) {
-    if (player.banned == "True") {
-        return "bg-danger"
-    } else {
-        return ""
-    }
-}
-
 function playerhost(player) {
     if (player.host == true) {
         return "host";
