@@ -86,7 +86,11 @@ function populate() {
 
             // Copy (copies some information to the clipboard of the os)
             content += "<td><button onclick=copyTextToClipboard('";
-            content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+            //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+            content += "https://steamcommunity.com/profiles/";
+            content += player.steamid;
+            content += "\\n";
+            content += player.ip;
             content += "')>Copy</button></td> ";
 
             // player VAC ban
