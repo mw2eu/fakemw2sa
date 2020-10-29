@@ -119,12 +119,19 @@ function populate() {
 
             // player seen
             content += "<td>";
-            content += moment(player.lastseen * 1000).fromNow();
+            content += lastseen(); // moment(player.lastseen * 1000).fromNow();
             content += "</td>";
             $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
 
             content += "</tr>";
         }
+    }
+
+    function lastseen() {
+        var d = new Date();
+        var epoch = Math.round(d.valueOf() / 1000);
+        var dif = epoch - player.lastseen;
+        return dif + " sec ago";
     }
 
     function nothing() {
