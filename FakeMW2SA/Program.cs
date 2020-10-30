@@ -8,8 +8,6 @@ namespace FakeMW2SA
     {
         public static Object thisLock = new Object();
         public static string MyExternalIP;
-        public static string LatestVersion;
-        public static string MOTD;
         public static List<PlayerModel> players = new List<PlayerModel>();
         public static int playerID = 0;
         public static int apicalls = 0;
