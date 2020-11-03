@@ -168,60 +168,77 @@ namespace FakeMW2SA
                             while (enumerator2.MoveNext())
                             {
                                 JToken each = enumerator2.Current;
-                                PlayerModel player = Program.players.Find((PlayerModel x) =>
-                                    x.steamid == each["steamid"].ToString());
-                                if (each["communityvisibilitystate"].Type != JTokenType.Null) {
+                                PlayerModel player = Program.players.Find((PlayerModel x) => x.steamid == each["steamid"].ToString());
+                                if (each["communityvisibilitystate"].Type != JTokenType.Null)
+                                {
                                     player.communityvisibilitystate = Convert.ToInt32(each["communityvisibilitystate"]);
                                 }
-                                if (each["profilestate"].Type != JTokenType.Null) {
+                                if (each["profilestate"].Type != JTokenType.Null)
+                                {
                                     player.profilestate = Convert.ToInt32(each["profilestate"]);
                                 }
-                                if (each["personaname"].Type != JTokenType.Null) {
+                                if (each["personaname"].Type != JTokenType.Null)
+                                {
                                     player.personaname = each["personaname"].ToString();
                                 }
-                                if (each["profileurl"].Type != JTokenType.Null) {
+                                if (each["profileurl"].Type != JTokenType.Null)
+                                {
                                     player.profileurl = each["profileurl"].ToString();
                                 }
-                                if (each["avatarfull"].Type != JTokenType.Null) {
+                                if (each["avatarfull"].Type != JTokenType.Null)
+                                {
                                     player.avatarfull = each["avatarfull"].ToString();
                                 }
-                                if (each["personastate"].Type != JTokenType.Null) {
+                                if (each["personastate"].Type != JTokenType.Null)
+                                {
                                     player.personastate = Convert.ToInt32(each["personastate"]);
                                 }
-                                if (each["timecreated"].Type != JTokenType.Null) {
+                                if (each["timecreated"].Type != JTokenType.Null)
+                                {
                                     player.timecreated = Convert.ToInt32(each["timecreated"].ToString());
                                 }
-                                if (each["communitybanned"].Type != JTokenType.Null) {
+                                if (each["communitybanned"].Type != JTokenType.Null)
+                                {
                                     player.communitybanned = Convert.ToInt32(each["communitybanned"]);
                                 }
-                                if (each["vacbanned"].Type != JTokenType.Null) {
+                                if (each["vacbanned"].Type != JTokenType.Null)
+                                {
                                     player.vacbanned = Convert.ToInt32(each["vacbanned"]);
                                 }
-                                if (each["numberofvacbans"].Type != JTokenType.Null) {
+                                if (each["numberofvacbans"].Type != JTokenType.Null)
+                                {
                                     player.numberofvacbans = Convert.ToInt32(each["numberofvacbans"]);
                                 }
-                                if (each["dateoflastban"].Type != JTokenType.Null) {
+                                if (each["dateoflastban"].Type != JTokenType.Null)
+                                {
                                     player.dateoflastban = Convert.ToInt32(each["dateoflastban"]);
                                 }
-                                if (each["numberofgamebans"].Type != JTokenType.Null) {
+                                if (each["numberofgamebans"].Type != JTokenType.Null)
+                                {
                                     player.numberogamebans = Convert.ToInt32(each["numberofgamebans"]);
                                 }
-                                if (each["mw2hours"].Type != JTokenType.Null) {
+                                if (each["mw2hours"].Type != JTokenType.Null)
+                                {
                                     player.mw2hours = Convert.ToInt32(each["mw2hours"]);
                                 }
-                                if (each["csgohours"].Type != JTokenType.Null) {
+                                if (each["csgohours"].Type != JTokenType.Null)
+                                {
                                     player.csgohours = Convert.ToInt32(each["csgohours"]);
                                 }
-                                if (each["cssourcehours"].Type != JTokenType.Null) {
+                                if (each["cssourcehours"].Type != JTokenType.Null)
+                                {
                                     player.cssourcehours = Convert.ToInt32(each["cssourcehours"]);
                                 }
-                                if (each["lastseen"].Type != JTokenType.Null) {
+                                if (each["lastseen"].Type != JTokenType.Null)
+                                {
                                     player.lastseen = GetEpochSeconds();
                                 }
-                                if (each["country"].Type != JTokenType.Null) {
+                                if (each["country"].Type != JTokenType.Null)
+                                {
                                     player.country = each["country"].ToString();
                                 }
-                                if (each["vacbypass"].Type != JTokenType.Null) {
+                                if (each["vacbypass"].Type != JTokenType.Null)
+                                {
                                     player.vacbypass = Convert.ToInt32(each["vacbypass"]);
                                 }
                             }
