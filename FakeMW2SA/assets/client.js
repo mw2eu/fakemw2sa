@@ -16,9 +16,6 @@ function unban(ip) {
 function submitmessage(messagevar) {
     $.ajax("/?action=message&messagetext=" + messagevar);
     console.log(messagevar)
-    setTimeout(function () {
-        reload();
-    }, 125);
 }
 
 function vacban(player) {
