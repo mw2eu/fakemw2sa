@@ -12,7 +12,6 @@ namespace FakeMW2SA
                 this.memberjoin = memberjoin;
                 ip = ipaddress;
                 TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
-                int secondsSinceEpoch = (int)t.TotalSeconds;
                 lastseen = Utils.GetEpochSeconds();
          }
         public string steamid { get; set; }
