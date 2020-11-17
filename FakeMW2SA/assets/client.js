@@ -1,16 +1,12 @@
 
 function ban(ip) {
     $.ajax("/?action=ban&ip=" + ip);
-    setTimeout(function () {
-        reload();
-    }, 125);
+    reload();
 }
 
 function unban(ip) {
     $.ajax("/?action=unban&ip=" + ip);
-    setTimeout(function () {
-        reload();
-    }, 125);
+    reload();
 }
 
 function submitmessage(messagevar) {
