@@ -81,8 +81,8 @@ namespace FakeMW2SA
                     String hs = string.Empty;
 
                     hs = hexString.Substring(i, 2);
-                    uint decval = System.Convert.ToUInt32(hs, 16);
-                    char character = System.Convert.ToChar(decval);
+                    uint decval = Convert.ToUInt32(hs, 16);
+                    char character = Convert.ToChar(decval);
                     ascii += character;
 
                 }
