@@ -67,7 +67,10 @@ namespace FakeMW2SA
             }
             if (PacketPayloadInHex.Contains(@"70617274797374617465")) //"partystate" - The partystate packet contains a lot of information including player name, steam ID, reported IP, and score information.
             {
-                Program.WriteOnBottomLine("partystate"); //incriment the console partystate count by one
+                //Program.WriteOnBottomLine("partystate"); //incriment the console partystate count by one
+                Program.partystatecount += 1;
+                Console.WriteLine("Partystate packets: " + Program.partystatecount);
+
                 Utils.SetHost(SourceIP);
                 string playerpatern = @"0{10}.{40}0{48}.{28}";
                 MatchCollection matches2;
@@ -79,9 +82,10 @@ namespace FakeMW2SA
                     IDlist.Add(long.Parse(Utils.ReverseBytes(matches2[ctr].Value.Substring(10, 16)), System.Globalization.NumberStyles.HexNumber).ToString());
                 }
                 for (int ctr = 0; ctr < matches2.Count; ctr++)
-                {
+                {                    
                     var partystatesteamid = long.Parse(Utils.ReverseBytes(matches2[ctr].Value.Substring(10, 16)), System.Globalization.NumberStyles.HexNumber).ToString();
                     var partystateip = new IPAddress(long.Parse(Utils.ReverseBytes(matches2[ctr].Value.Substring(34, 8)), System.Globalization.NumberStyles.AllowHexSpecifier)).ToString();
+                    
                     PlayerModel player;
                     //Search the list of players with a matching steam ID
                     if ((Program.players.Find(x => x.steamid == partystatesteamid) == null))
@@ -141,13 +145,19 @@ namespace FakeMW2SA
                     player.unknown1 = int.Parse(matches2[ctr].Value.Substring(98, 8), System.Globalization.NumberStyles.HexNumber);
                     player.unknown2 = int.Parse(Utils.ReverseBytes(matches2[ctr].Value.Substring(106, 8)), System.Globalization.NumberStyles.HexNumber);
                 }
-                Program.WriteOnBottomLine(numberofplayers.ToString());
+
+                //Program.WriteOnBottomLine(numberofplayers.ToString());
                 //We've extracted all the player information from the packet as needed. We're going to call on some external web APIs to obtain more information.
+                Console.WriteLine("Players in last partystate: " + numberofplayers.ToString());
+
                 Utils.CallApis();
             }
             if (PacketPayloadInHex.Contains(@"6D656D62"))//"memberjoin" We log the header IP and player name from these packets, to defeat IP spoofers.
             {
-                Program.WriteOnBottomLine("memberjoin");
+                //Program.WriteOnBottomLine("memberjoin");
+                Program.memberjoincount += 1;
+                Console.WriteLine("Memberjoin packets: " + Program.memberjoincount);
+
                 string PlayerNameInHex;
                 Match match = Regex.Match(PacketPayloadInHex, @"(?:[0-9a-fA-F][0-9a-fA-F])+?0{48}.{16}([0-9a-fA-F]+?)0000");
                 while (match.Success)

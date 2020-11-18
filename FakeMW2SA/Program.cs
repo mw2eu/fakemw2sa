@@ -54,29 +54,7 @@ namespace FakeMW2SA
             Console.Title = "FakeMW2SA Version " + typeof(Program).Assembly.GetName().Version.ToString();
             HttpClient.Start();
             Sniffer.Start();
-            WriteOnBottomLine("0");
             InitialWebCalls();
-        }
-        public static string playersinpacket = "0";
-        public static void WriteOnBottomLine(string text)
-        {
-            if (text == "memberjoin")
-            {
-                memberjoincount += 1;
-            }
-            else if (text == "partystate")
-            {
-                partystatecount += 1;
-            }
-            else if (text == "apicalls")
-            {
-                apicalls += 1;
-            }
-            else
-            {
-                playersinpacket = text + "  ";
-            }
-            Console.WriteLine("Partystate packets: {0} | Memberjoin packets: {1} | Api calls: {2} | Players in last partystate: {3}", partystatecount, memberjoincount, apicalls, playersinpacket);
         }
     }
 }

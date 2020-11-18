@@ -160,6 +160,8 @@ namespace FakeMW2SA
                         wc.Encoding = System.Text.Encoding.UTF8;
                         int backgroundapicalls = Int32.Parse(JObject.Parse(wc.DownloadString(url))["0"]["apicalls"].ToString());
                         Program.apicalls = Program.apicalls + backgroundapicalls;
+                        Console.WriteLine("Api calls: " + Program.apicalls);
+
                         using (IEnumerator<JToken> enumerator2 = ((IEnumerable<JToken>)JObject.Parse(wc.DownloadString(url))["response"]["players"]).GetEnumerator())
                         {
                             while (enumerator2.MoveNext())
