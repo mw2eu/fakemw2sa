@@ -13,7 +13,7 @@ namespace FakeMW2SA
                 ip = ipaddress;
                 TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
                 lastseen = Utils.GetEpochSeconds();
-         }
+        }
         public string steamid { get; set; }
         public int communityvisibilitystate { get; set; }
         public int profilestate { get; set; }
@@ -67,7 +67,6 @@ namespace FakeMW2SA
                 
             }
         }
-        
         public List<string> ipaddresses { get; set; }
         public List<PlayerModel> players { get; set; } = Program.players;
         public string host { get; set; } = "0.0.0.0";
@@ -76,4 +75,3 @@ namespace FakeMW2SA
         public int memberjoincount { get; set; } = Program.memberjoincount;
     }
 }
-
