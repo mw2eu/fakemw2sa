@@ -45,7 +45,7 @@ function playerhost(player) {
 }
 
 function populate() {
-    $("#playertable tbody").children().remove();
+    $("#playertable").children().remove();
 
     var content = "";
 
@@ -135,7 +135,7 @@ function populate() {
         return;
     }
 
-    $("#playertable tbody").append(content);
+    $("#playertable").append(content);
 
     //apply party colours
     var color = 0;
