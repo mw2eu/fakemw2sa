@@ -11,49 +11,45 @@ namespace FakeMW2SA
 {
     class Utils
     {
-        public static void RunCommand(string command)
-        {
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.WriteLine(command);
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-        }
-        public static void Unban(string ip)
+        public static void Block(string ip, bool on)
         {
             if (ip.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Length == 4)
             {
                 var players = Program.players.FindAll(x => x.ip == ip);
-                foreach (PlayerModel player in players)
-                {
-                    player.banned = "False";
-                }
-                string banRemove = "route delete " + ip + " 0.0.0.0";
-                Console.WriteLine(banRemove);
-                RunCommand(banRemove);
-            }
-        }
-        public static void Ban(string ip)
-        {
-            if (ip.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Length == 4)
-            {
-                var players = Program.players.FindAll(x => x.ip == ip);
-                foreach (PlayerModel player in players)
-                {
-                    player.banned = "True";
-                }
-                string banAdd = "route add " + ip + " 0.0.0.0 IF 1";
-                Console.WriteLine(banAdd);
-                RunCommand(banAdd);
-            }
+                string command;
 
+                foreach (PlayerModel player in players)
+                {
+                    if (on)
+                    {
+                        player.banned = "True";
+                    }
+                    else
+                    {
+                        player.banned = "False";
+                    }
+                }
+                if (on)
+                {
+                    command = "route add " + ip + " 0.0.0.0 IF 1";
+                }
+                else
+                {
+                    command = "route delete " + ip + " 0.0.0.0";
+                }
+                Process cmd = new Process();
+                cmd.StartInfo.FileName = "cmd.exe";
+                cmd.StartInfo.RedirectStandardInput = true;
+                cmd.StartInfo.RedirectStandardOutput = true;
+                cmd.StartInfo.CreateNoWindow = true;
+                cmd.StartInfo.UseShellExecute = false;
+                cmd.Start();
+                cmd.StandardInput.Flush();
+                cmd.StandardInput.WriteLine(command);
+                cmd.StandardInput.Flush();
+                cmd.StandardInput.Close();
+                cmd.WaitForExit();
+            }
         }
         public static int GetEpochSeconds()
         {

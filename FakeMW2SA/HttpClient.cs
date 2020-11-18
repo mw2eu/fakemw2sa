@@ -64,11 +64,11 @@ namespace FakeMW2SA
                                 break;
 
                             case "ban":
-                                Utils.Ban(request.QueryString.GetValues("ip")[0]);
+                                Utils.Block(request.QueryString.GetValues("ip")[0], true);
                                 break;
 
                             case "unban":
-                                Utils.Unban(request.QueryString.GetValues("ip")[0]);
+                                Utils.Block(request.QueryString.GetValues("ip")[0], false);
                                 break;
 
                             case "host":
