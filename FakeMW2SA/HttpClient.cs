@@ -62,19 +62,24 @@ namespace FakeMW2SA
                             case "message":
                                 Console.WriteLine(request.QueryString.GetValues("messagetext")[0]);
                                 break;
+
                             case "ban":
                                 Utils.Ban(request.QueryString.GetValues("ip")[0]);
                                 break;
+
                             case "unban":
                                 Utils.Unban(request.QueryString.GetValues("ip")[0]);
                                 break;
+
                             case "host":
                                 responseString = JsonConvert.SerializeObject(new JsonOutput());
                                 break;
+
                             case "players":
                                 response.ContentType = "application/json";
                                 responseString = JsonConvert.SerializeObject(new JsonOutput());
                                 break;
+
                             default:
                                 break;
                         }
