@@ -45,7 +45,10 @@ function playerhost(player) {
 }
 
 function populate() {
-    $("#playertable").children().remove();
+    //$("#playertable").children().remove();
+    while (playertable.firstChild) {
+        playertable.removeChild(playertable.firstChild);
+    }
 
     var content = "";
 
@@ -135,7 +138,8 @@ function populate() {
         return;
     }
 
-    $("#playertable").append(content);
+    //$("#playertable").append(content);
+    playertable.innerHTML += content;
 
     //apply party colours
     var color = 0;
