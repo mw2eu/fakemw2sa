@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using Newtonsoft.Json.Linq; // todo: replace with "System.Text.Json"
 
 namespace FakeMW2SA
 {
