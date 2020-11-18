@@ -67,27 +67,21 @@ function populate() {
             content += "</button>";
             content += "</td>";
 
-            // ban / unban
+            // player ip
             content += "<td>";
-            if ((player.banned == null) || (player.banned == "False")) {
-                content += "<button onclick=\"ban('"
-                content += player.ip
-                content += "')\">Ban</button>"
-            } else {
-                content += "<button onclick=\"unban('"
-                content += player.ip
-                content += "')\">Unban</button>"
-            }
+            content += player.ip;
             content += "</td>";
 
-            // Copy (copies some information to the clipboard of the os)
-            content += "<td><button onclick=copyTextToClipboard('";
-            //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
-            content += "https://steamcommunity.com/profiles/";
-            content += player.steamid;
-            content += "\\n";
-            content += player.ip;
-            content += "')>Copy</button></td> ";
+            // player location
+            content += "<td>";
+            content += playerlocation(player);
+            content += "</td>";
+
+            // player seen
+            content += "<td>";
+            content += lastseen(); // moment(player.lastseen * 1000).fromNow();
+            content += "</td>";
+            $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
 
             // player VAC ban
             if (player.vacbanned == 1) {
@@ -107,21 +101,27 @@ function populate() {
             content += vacban(player)
             content += "</button></td>";
 
-            // player location
+            // ban / unban
             content += "<td>";
-            content += playerlocation(player);
+            if ((player.banned == null) || (player.banned == "False")) {
+                content += "<button onclick=\"ban('"
+                content += player.ip
+                content += "')\">Add</button>"
+            } else {
+                content += "<button onclick=\"unban('"
+                content += player.ip
+                content += "')\">Delete</button>"
+            }
             content += "</td>";
 
-            // player ip
-            content += "<td>";
+            // Copy (copies some information to the clipboard of the os)
+            content += "<td><button onclick=copyTextToClipboard('";
+            //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+            content += "https://steamcommunity.com/profiles/";
+            content += player.steamid;
+            content += "\\n";
             content += player.ip;
-            content += "</td>";
-
-            // player seen
-            content += "<td>";
-            content += lastseen(); // moment(player.lastseen * 1000).fromNow();
-            content += "</td>";
-            $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
+            content += "')>Copy</button></td> ";
 
             content += "</tr>";
         }
