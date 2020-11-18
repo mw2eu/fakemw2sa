@@ -102,8 +102,9 @@ namespace FakeMW2SA
             using (var sr = new StringReader(hex))
             {
                 for (int i = 0; i < NumberChars; i++)
-                    bytes[i] =
-                      Convert.ToByte(new string(new char[2] { (char)sr.Read(), (char)sr.Read() }), 16);
+                {
+                    bytes[i] = Convert.ToByte(new string(new char[2] { (char)sr.Read(), (char)sr.Read() }), 16);
+                }
             }
             return bytes;
         }
