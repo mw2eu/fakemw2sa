@@ -8,11 +8,11 @@ namespace FakeMW2SA
     {
         public PlayerModel(string ipaddress, string steamid, bool memberjoin)
         {
-                this.steamid = steamid;
-                this.memberjoin = memberjoin;
-                ip = ipaddress;
-                TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
-                lastseen = Utils.GetEpochSeconds();
+            this.steamid = steamid;
+            this.memberjoin = memberjoin;
+            ip = ipaddress;
+            TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            lastseen = Utils.GetEpochSeconds();
         }
         public string steamid { get; set; }
         public int communityvisibilitystate { get; set; }
