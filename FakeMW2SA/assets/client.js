@@ -1,4 +1,9 @@
 
+function submitmessage(messagevar) {
+    $.ajax("/?action=message&messagetext=" + messagevar);
+    console.log(messagevar)
+}
+
 function ban(ip) {
     $.ajax("/?action=ban&ip=" + ip);
     reload();
@@ -7,11 +12,6 @@ function ban(ip) {
 function unban(ip) {
     $.ajax("/?action=unban&ip=" + ip);
     reload();
-}
-
-function submitmessage(messagevar) {
-    $.ajax("/?action=message&messagetext=" + messagevar);
-    console.log(messagevar)
 }
 
 function vacban(player) {
