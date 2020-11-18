@@ -59,9 +59,8 @@ namespace FakeMW2SA
                         var action = request.QueryString.GetValues("action")[0];
                         switch (action)
                         {
-                            case "players":
-                                response.ContentType = "application/json";
-                                responseString = JsonConvert.SerializeObject(new JsonOutput());
+                            case "message":
+                                Console.WriteLine(request.QueryString.GetValues("messagetext")[0]);
                                 break;
                             case "ban":
                                 Utils.Ban(request.QueryString.GetValues("ip")[0]);
@@ -72,8 +71,9 @@ namespace FakeMW2SA
                             case "host":
                                 responseString = JsonConvert.SerializeObject(new JsonOutput());
                                 break;
-                            case "message":
-                                Console.WriteLine(request.QueryString.GetValues("messagetext")[0]);
+                            case "players":
+                                response.ContentType = "application/json";
+                                responseString = JsonConvert.SerializeObject(new JsonOutput());
                                 break;
                             default:
                                 break;
