@@ -1,16 +1,16 @@
 
 function submitmessage(messagevar) {
-    $.ajax("/?action=message&messagetext=" + messagevar);
+    fetch("/?action=message&messagetext=" + messagevar);
     console.log(messagevar)
 }
 
 function ban(ip) {
-    $.ajax("/?action=ban&ip=" + ip);
+    fetch("/?action=ban&ip=" + ip);
     reload();
 }
 
 function unban(ip) {
-    $.ajax("/?action=unban&ip=" + ip);
+    fetch("/?action=unban&ip=" + ip);
     reload();
 }
 
