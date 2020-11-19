@@ -25,17 +25,12 @@ namespace FakeMW2SA
         public int playerprimaryid { get; set; }
         public int unknown1 { get; set; }
         public int unknown2 { get; set; }
-        public int missing { get; set; }
-        public int deaths { get; set; }
-        public int score { get; set; }
         public int partyID { get; set; }
         public int lastupdated { get; set; }
         public int vacbypass { get; set; } = 2;
         public string steamid { get; set; }
         public string personaname { get; set; }
         public string profileurl { get; set; }
-        public string level { get; set; }
-        public string presteige { get; set; }
         public string country { get; set; }
         public string lobby { get; set; }
         public string ip { get; set; }
