@@ -62,11 +62,15 @@ namespace FakeMW2SA
             var PacketPayloadInHex = BitConverter.ToString(eth.Bytes).Replace("-", string.Empty);
             var DestIP = new IPAddress(long.Parse(Utils.ReverseBytes(PacketPayloadInHex.Substring(60, 8)), System.Globalization.NumberStyles.AllowHexSpecifier)).ToString();
             var SourceIP = new IPAddress(long.Parse(Utils.ReverseBytes(PacketPayloadInHex.Substring(52, 8)), System.Globalization.NumberStyles.AllowHexSpecifier)).ToString();
+
             if (!localipaddresses.Contains(SourceIP))
             {
                 Program.Addipaddress(SourceIP);
             }
-            if (PacketPayloadInHex.Contains(@"70617274797374617465")) //"partystate" - The partystate packet contains a lot of information including player name, steam ID, reported IP, and score information.
+
+            // hex to ascii > 70617274797374617465 = partystate
+            // the partystate packet contains a lot of information including player name, steam ID, reported IP, and score information
+            if (PacketPayloadInHex.Contains(@"70617274797374617465")) 
             {
                 //Program.WriteOnBottomLine("partystate"); //incriment the console partystate count by one
                 Program.partystatecount += 1;
@@ -88,6 +92,7 @@ namespace FakeMW2SA
                     var partystateip = new IPAddress(long.Parse(Utils.ReverseBytes(matches2[ctr].Value.Substring(34, 8)), System.Globalization.NumberStyles.AllowHexSpecifier)).ToString();
                     
                     PlayerModel player;
+
                     //Search the list of players with a matching steam ID
                     if ((Program.players.Find(x => x.steamid == partystatesteamid) == null))
                     {
@@ -119,48 +124,32 @@ namespace FakeMW2SA
                     int secondsSinceEpoch = (int)t.TotalSeconds;
                     player.updated = false;
                     player.lastupdated = Utils.GetEpochSeconds();
-                    //There are two different parsing systems used here, depending on whether a mystery byte is missing. This is a sanity check to determine which one to use.
-                    if (int.Parse(matches2[ctr].Value.Substring(120, 2), System.Globalization.NumberStyles.HexNumber) + 1 <= 70 && //Level must be 70 or below
-                        int.Parse(matches2[ctr].Value.Substring(122, 2), System.Globalization.NumberStyles.HexNumber) + 1 <= 11 && //Presteige must be 11 or below
-                        int.Parse(matches2[ctr].Value.Substring(118, 2), System.Globalization.NumberStyles.HexNumber) < 50 && //Deaths must be 50 or below
-                        int.Parse((matches2[ctr].Value.Substring(116, 2) + matches2[ctr].Value.Substring(114, 2)), System.Globalization.NumberStyles.HexNumber) < 10000 && //Score must be 10,000 or below
-                        int.Parse((matches2[ctr].Value.Substring(116, 2) + matches2[ctr].Value.Substring(114, 2)), System.Globalization.NumberStyles.HexNumber) % 10 == 0) //Score must be divisable by 10
-                    {
-                        numberofplayers += 1;
-                        player.level = int.Parse(matches2[ctr].Value.Substring(120, 2), System.Globalization.NumberStyles.HexNumber).ToString();
-                        player.presteige = int.Parse(matches2[ctr].Value.Substring(122, 2), System.Globalization.NumberStyles.HexNumber).ToString();
-                        player.deaths = int.Parse(matches2[ctr].Value.Substring(118, 2), System.Globalization.NumberStyles.HexNumber);
-                        player.score = int.Parse((matches2[ctr].Value.Substring(116, 2) + matches2[ctr].Value.Substring(114, 2)), System.Globalization.NumberStyles.HexNumber);
-                        player.missing = 1;
-                    }
-                    else
-                    {
-                        numberofplayers += 1;
-                        player.level = int.Parse(matches2[ctr].Value.Substring(122, 2), System.Globalization.NumberStyles.HexNumber).ToString();
-                        player.presteige = int.Parse(matches2[ctr].Value.Substring(124, 2), System.Globalization.NumberStyles.HexNumber).ToString();
-                        player.deaths = int.Parse(matches2[ctr].Value.Substring(120, 2), System.Globalization.NumberStyles.HexNumber);
-                        player.score = int.Parse((matches2[ctr].Value.Substring(118, 2) + matches2[ctr].Value.Substring(116, 2)), System.Globalization.NumberStyles.HexNumber);
-                        player.missing = 0;
-                    }
+
+                    numberofplayers += 1;
+
                     //these two bytes are used in the party ID
                     player.unknown1 = int.Parse(matches2[ctr].Value.Substring(98, 8), System.Globalization.NumberStyles.HexNumber);
                     player.unknown2 = int.Parse(Utils.ReverseBytes(matches2[ctr].Value.Substring(106, 8)), System.Globalization.NumberStyles.HexNumber);
                 }
 
-                //Program.WriteOnBottomLine(numberofplayers.ToString());
-                //We've extracted all the player information from the packet as needed. We're going to call on some external web APIs to obtain more information.
+                // old: Program.WriteOnBottomLine(numberofplayers.ToString());
                 Console.WriteLine("Players in last partystate: " + numberofplayers.ToString());
 
+                // extracted all the player information from the packet as needed, going to call on external web APIs to obtain more information
                 Utils.CallApis();
             }
-            if (PacketPayloadInHex.Contains(@"6D656D62"))//"memberjoin" We log the header IP and player name from these packets, to defeat IP spoofers.
+
+            // hex to ascii > 6D656D62 = memb
+            // memberjoin, log the header IP and player name from these packets, to defeat IP spoofers, todo: used?
+            if (PacketPayloadInHex.Contains(@"6D656D62"))
             {
-                //Program.WriteOnBottomLine("memberjoin");
+                // old: Program.WriteOnBottomLine("memberjoin");
                 Program.memberjoincount += 1;
                 Console.WriteLine("Memberjoin packets: " + Program.memberjoincount);
 
                 string PlayerNameInHex;
                 Match match = Regex.Match(PacketPayloadInHex, @"(?:[0-9a-fA-F][0-9a-fA-F])+?0{48}.{16}([0-9a-fA-F]+?)0000");
+
                 while (match.Success)
                 {
                     if (match.Groups[1].Value.Length % 2 != 0)
@@ -171,17 +160,21 @@ namespace FakeMW2SA
                     {
                         PlayerNameInHex = match.Groups[1].Value;
                     }
+
                     byte[] dBytes = Utils.StringToByteArray(PlayerNameInHex);
                     string ASCIIresult = System.Text.Encoding.ASCII.GetString(dBytes);
                     string utf8result = System.Text.Encoding.UTF8.GetString(dBytes);
                     match = match.NextMatch();
+
                     PlayerModel player;
+
                     player = new PlayerModel(SourceIP, "0", true) { playerprimaryid = Program.playerID, personaname = utf8result};
+
                     if ((Program.players.Find(x => x.ip == SourceIP) == null))
                     {
-                    Program.playerID++;
-                    player.partyID = Utils.FindPartyID();
-                    Program.players.Add(player);
+                        Program.playerID++;
+                        player.partyID = Utils.FindPartyID();
+                        Program.players.Add(player);
                     } 
                 }
             }
