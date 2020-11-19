@@ -1,10 +1,10 @@
-﻿using PacketDotNet;
-using SharpPcap;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using PacketDotNet;
+using SharpPcap;
 
 namespace FakeMW2SA
 {
@@ -19,12 +19,13 @@ namespace FakeMW2SA
                 var devices = CaptureDeviceList.Instance;
                 if (devices.Count < 1)
                 {
-                    throw new Exception("No interfaces found! Make sure Npcap is installed.");
+                    throw new Exception("error: related: devices, instances, < 1, no interface, npcap installed?");
                 }
                 foreach (SharpPcap.Npcap.NpcapDevice dev in devices)
                 {
                     //Write each device to the console.
-                    //Console.Out.WriteLine("{0}", dev.Description);
+                    Console.WriteLine("{0}", dev.Description);
+                    
                     foreach (SharpPcap.LibPcap.PcapAddress addr in dev.Addresses)
                     {
                         if (addr.Addr != null && addr.Addr.ipAddress != null)
