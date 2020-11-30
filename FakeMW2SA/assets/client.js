@@ -62,11 +62,6 @@ function populate() {
             content += "</button>";
             content += "</td>";
 
-            // player ip
-            content += "<td>";
-            content += player.ip;
-            content += "</td>";
-
             // player location
             content += "<td>";
             content += playerlocation(player);
