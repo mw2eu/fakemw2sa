@@ -1,9 +1,4 @@
 
-function submitmessage(messagevar) {
-    fetch("/?action=message&messagetext=" + messagevar);
-    console.log(messagevar)
-}
-
 function ban(ip) {
     fetch("/?action=ban&ip=" + ip);
     reload();

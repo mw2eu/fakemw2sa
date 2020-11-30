@@ -59,10 +59,6 @@ namespace FakeMW2SA
                         var action = request.QueryString.GetValues("action")[0];
                         switch (action)
                         {
-                            case "message":
-                                Console.WriteLine(request.QueryString.GetValues("messagetext")[0]);
-                                break;
-
                             case "ban":
                                 Utils.Block(request.QueryString.GetValues("ip")[0], true);
                                 break;
