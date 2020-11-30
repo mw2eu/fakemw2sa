@@ -97,7 +97,7 @@ function populate() {
             content += "</button></td>";
 
             // Info > Copy (copies some information to the clipboard of the os)
-            content += "<td><button onclick=copyTextToClipboard('";
+            content += "<td><button style='background-color:lightgoldenrodyellow' onclick=copyTextToClipboard('";
             //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
             content += "https://steamcommunity.com/profiles/";
             content += player.steamid;
@@ -108,11 +108,11 @@ function populate() {
             // Block > Add/Delete
             content += "<td>";
             if ((player.banned == null) || (player.banned == "False")) {
-                content += "<button onclick=\"ban('"
+                content += "<button style='background-color:lightgreen' onclick=\"ban('"
                 content += player.ip
                 content += "')\">Add</button>"
             } else {
-                content += "<button onclick=\"unban('"
+                content += "<button style='background-color:lightcoral' onclick=\"unban('"
                 content += player.ip
                 content += "')\">Delete</button>"
             }
