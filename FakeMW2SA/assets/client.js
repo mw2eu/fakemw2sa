@@ -80,7 +80,7 @@ function populate() {
                 } else if (player.vacbypass == 1) {
                     colorvac = "lightpink";
                 } else if (player.vacbypass == 2) {
-                    colorvac = "lightcoral";
+                    colorvac = "lightsalmon";
                 }
             } else {
                 colorvac = "lightblue";
