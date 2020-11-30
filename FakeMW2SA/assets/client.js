@@ -101,7 +101,16 @@ function populate() {
             content += vacban(player)
             content += "</button></td>";
 
-            // ban / unban
+            // Info > Copy (copies some information to the clipboard of the os)
+            content += "<td><button onclick=copyTextToClipboard('";
+            //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+            content += "https://steamcommunity.com/profiles/";
+            content += player.steamid;
+            content += "\\n";
+            content += player.ip;
+            content += "')>Copy</button></td> ";
+
+            // Block > Add/Delete
             content += "<td>";
             if ((player.banned == null) || (player.banned == "False")) {
                 content += "<button onclick=\"ban('"
@@ -113,15 +122,6 @@ function populate() {
                 content += "')\">Delete</button>"
             }
             content += "</td>";
-
-            // Copy (copies some information to the clipboard of the os)
-            content += "<td><button onclick=copyTextToClipboard('";
-            //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
-            content += "https://steamcommunity.com/profiles/";
-            content += player.steamid;
-            content += "\\n";
-            content += player.ip;
-            content += "')>Copy</button></td> ";
 
             content += "</tr>";
         }
