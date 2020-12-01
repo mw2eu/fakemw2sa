@@ -1,11 +1,11 @@
 
 function ban(ip) {
-    fetch("/?action=ban&ip=" + ip);
+    fetch("/?action=blockadd&ip=" + ip);
     reload();
 }
 
 function unban(ip) {
-    fetch("/?action=unban&ip=" + ip);
+    fetch("/?action=blockdelete&ip=" + ip);
     reload();
 }
 
@@ -103,11 +103,11 @@ function populate() {
             // Block > Add/Delete
             content += "<td>";
             if ((player.banned == null) || (player.banned == "False")) {
-                content += "<button style='background-color:lightgreen' onclick=\"ban('"
+                content += "<button style='background-color:lightgreen' onclick=\"blockadd('"
                 content += player.ip
                 content += "')\">Add</button>"
             } else {
-                content += "<button style='background-color:lightcoral' onclick=\"unban('"
+                content += "<button style='background-color:lightcoral' onclick=\"blockdelete('"
                 content += player.ip
                 content += "')\">Delete</button>"
             }

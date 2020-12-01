@@ -59,11 +59,11 @@ namespace FakeMW2SA
                         var action = request.QueryString.GetValues("action")[0];
                         switch (action)
                         {
-                            case "ban":
+                            case "blockadd":
                                 Utils.Block(request.QueryString.GetValues("ip")[0], true);
                                 break;
 
-                            case "unban":
+                            case "blockdelete":
                                 Utils.Block(request.QueryString.GetValues("ip")[0], false);
                                 break;
 
