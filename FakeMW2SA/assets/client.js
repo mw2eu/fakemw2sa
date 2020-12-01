@@ -75,13 +75,7 @@ function populate() {
 
             // player VAC ban
             if (player.vacbanned == 1) {
-                if (player.vacbypass == 0) {
-                    colorvac = "lightgreen";
-                } else if (player.vacbypass == 1) {
-                    colorvac = "lightpink";
-                } else if (player.vacbypass == 2) {
-                    colorvac = "lightsalmon";
-                }
+                colorvac = "lightsalmon";
             } else {
                 colorvac = "lightblue";
             }
