@@ -1,10 +1,10 @@
 
-function ban(ip) {
+function blockadd(ip) {
     fetch("/?action=blockadd&ip=" + ip);
     reload();
 }
 
-function unban(ip) {
+function blockdelete(ip) {
     fetch("/?action=blockdelete&ip=" + ip);
     reload();
 }
