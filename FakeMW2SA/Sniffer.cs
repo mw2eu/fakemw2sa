@@ -97,7 +97,7 @@ namespace FakeMW2SA
                     if ((Program.players.Find(x => x.steamid == partystatesteamid) == null))
                     {
                         //If the player isn't found, we're going to add them to the list of players, and increment the playerID variable for the next player
-                        player = new PlayerModel(partystateip, partystatesteamid, false) { playerprimaryid = Program.playerID };
+                        player = new PlayerModel(partystateip, partystatesteamid) { playerprimaryid = Program.playerID };
                         Program.playerID++;
                         Program.players.Add(player);
                     }

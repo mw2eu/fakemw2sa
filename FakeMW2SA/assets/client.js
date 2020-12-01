@@ -48,67 +48,65 @@ function populate() {
     var content = "";
 
     for (player of playersdata) {
-        if (player.memberjoin == false) {
-            content += "<tr>";
+        content += "<tr>";
 
-            // player name with link to Steam profile
-            content += "<td><a target='_blank' href='";
-            content += player.profileurl;
-            content += "'><span>";
-            content += escape(player.personaname)
-            content += "</span></a>"
-            content += "<button style='background-color:mediumpurple'>";
-            content += playerhost(player);
-            content += "</button>";
-            content += "</td>";
+        // player name with link to Steam profile
+        content += "<td><a target='_blank' href='";
+        content += player.profileurl;
+        content += "'><span>";
+        content += escape(player.personaname)
+        content += "</span></a>"
+        content += "<button style='background-color:mediumpurple'>";
+        content += playerhost(player);
+        content += "</button>";
+        content += "</td>";
 
-            // player location
-            content += "<td>";
-            content += playerlocation(player);
-            content += "</td>";
+        // player location
+        content += "<td>";
+        content += playerlocation(player);
+        content += "</td>";
 
-            // player seen
-            content += "<td>";
-            content += lastseen(); // moment(player.lastseen * 1000).fromNow();
-            content += "</td>";
-            $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
+        // player seen
+        content += "<td>";
+        content += lastseen(); // moment(player.lastseen * 1000).fromNow();
+        content += "</td>";
+        $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
 
-            // player VAC ban
-            if (player.vacbanned == 1) {
-                colorvac = "lightsalmon";
-            } else {
-                colorvac = "lightblue";
-            }
-            content += "<td><button style='background-color:";
-            content += colorvac;
-            content += "'>";
-            content += vacban(player)
-            content += "</button></td>";
-
-            // Info > Copy (copies some information to the clipboard of the os)
-            content += "<td><button style='background-color:lightgoldenrodyellow' onclick=copyTextToClipboard('";
-            //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
-            content += "https://steamcommunity.com/profiles/";
-            content += player.steamid;
-            content += "\\n";
-            content += player.ip;
-            content += "')>Copy</button></td> ";
-
-            // Block > Add/Delete
-            content += "<td>";
-            if ((player.banned == null) || (player.banned == "False")) {
-                content += "<button style='background-color:lightgreen' onclick=\"blockadd('"
-                content += player.ip
-                content += "')\">Add</button>"
-            } else {
-                content += "<button style='background-color:lightcoral' onclick=\"blockdelete('"
-                content += player.ip
-                content += "')\">Delete</button>"
-            }
-            content += "</td>";
-
-            content += "</tr>";
+        // player VAC ban
+        if (player.vacbanned == 1) {
+            colorvac = "lightsalmon";
+        } else {
+            colorvac = "lightblue";
         }
+        content += "<td><button style='background-color:";
+        content += colorvac;
+        content += "'>";
+        content += vacban(player)
+        content += "</button></td>";
+
+        // Info > Copy (copies some information to the clipboard of the os)
+        content += "<td><button style='background-color:lightgoldenrodyellow' onclick=copyTextToClipboard('";
+        //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
+        content += "https://steamcommunity.com/profiles/";
+        content += player.steamid;
+        content += "\\n";
+        content += player.ip;
+        content += "')>Copy</button></td> ";
+
+        // Block > Add/Delete
+        content += "<td>";
+        if ((player.banned == null) || (player.banned == "False")) {
+            content += "<button style='background-color:lightgreen' onclick=\"blockadd('"
+            content += player.ip
+            content += "')\">Add</button>"
+        } else {
+            content += "<button style='background-color:lightcoral' onclick=\"blockdelete('"
+            content += player.ip
+            content += "')\">Delete</button>"
+        }
+        content += "</td>";
+
+        content += "</tr>";
     }
 
     function lastseen() {

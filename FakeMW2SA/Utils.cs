@@ -110,7 +110,7 @@ namespace FakeMW2SA
             {
                 each.host = false;
             }
-            if ((Program.players.Find(x => x.ip == SourceIP && x.memberjoin == false) != null))
+            if ((Program.players.Find(x => x.ip == SourceIP) != null))
             {
                 (Program.players.Find(x => x.ip == SourceIP)).host = true;
             }
@@ -137,9 +137,9 @@ namespace FakeMW2SA
             List<PlayerModel> playerstolookup = new List<PlayerModel>();
             foreach (PlayerModel each in Program.players)
             {
-                //If we don't have the player name OR they're not a memberjoin packet and they're not updated and they haven't been seen within 60 seconds
+                //If we don't have the player name OR they're not updated and they haven't been seen within 60 seconds
                 //put them in the player lookup queue, and set them to "updated"
-                if (each.personaname == null || (each.memberjoin == false && each.updated == false && GetEpochSeconds() - 60 > each.lastseen))
+                if (each.personaname == null || (each.updated == false && GetEpochSeconds() - 60 > each.lastseen))
                 {
                     playerstolookup.Add(each);
                     each.updated = true;

@@ -6,16 +6,14 @@ namespace FakeMW2SA
 {
     public class PlayerModel
     {
-        public PlayerModel(string ipaddress, string steamid, bool memberjoin)
+        public PlayerModel(string ipaddress, string steamid)
         {
             this.steamid = steamid;
-            this.memberjoin = memberjoin;
             ip = ipaddress;
             TimeSpan t = DateTime.UtcNow - new DateTime(1970, 1, 1);
             lastseen = Utils.GetEpochSeconds();
         }
         public bool host { get; set; }
-        public bool memberjoin { get; set; }
         public bool updated { get; set; } = false;
         public int personastate { get; set; }
         public int vacbanned { get; set; }
@@ -58,6 +56,5 @@ namespace FakeMW2SA
         public string host { get; set; } = "0.0.0.0";
         public int apicalls { get; set; } = Program.apicalls;
         public int partystatecount { get; set; } = Program.partystatecount;
-        public int memberjoincount { get; set; } = Program.memberjoincount;
     }
 }

@@ -12,7 +12,6 @@ namespace FakeMW2SA
         public static int playerID = 0;
         public static int apicalls = 0;
         public static int partystatecount = 0;
-        public static int memberjoincount = 0;
         public static long port = 28962;
         public static List<string> ipaddresses = new List<string>();
         public static int ipindex = 0;
