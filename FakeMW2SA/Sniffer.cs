@@ -138,46 +138,6 @@ namespace FakeMW2SA
                 // extracted all the player information from the packet as needed, going to call on external web APIs to obtain more information
                 Utils.CallApis();
             }
-
-            // hex to ascii > 6D656D62 = memb
-            // memberjoin, log the header IP and player name from these packets, to defeat IP spoofers, todo: used?
-            if (PacketPayloadInHex.Contains(@"6D656D62"))
-            {
-                // old: Program.WriteOnBottomLine("memberjoin");
-                Program.memberjoincount += 1;
-                Console.WriteLine("Memberjoin packets: " + Program.memberjoincount);
-
-                string PlayerNameInHex;
-                Match match = Regex.Match(PacketPayloadInHex, @"(?:[0-9a-fA-F][0-9a-fA-F])+?0{48}.{16}([0-9a-fA-F]+?)0000");
-
-                while (match.Success)
-                {
-                    if (match.Groups[1].Value.Length % 2 != 0)
-                    {
-                        PlayerNameInHex = match.Groups[1].Value + "0";
-                    }
-                    else
-                    {
-                        PlayerNameInHex = match.Groups[1].Value;
-                    }
-
-                    byte[] dBytes = Utils.StringToByteArray(PlayerNameInHex);
-                    string ASCIIresult = System.Text.Encoding.ASCII.GetString(dBytes);
-                    string utf8result = System.Text.Encoding.UTF8.GetString(dBytes);
-                    match = match.NextMatch();
-
-                    PlayerModel player;
-
-                    player = new PlayerModel(SourceIP, "0", true) { playerprimaryid = Program.playerID, personaname = utf8result};
-
-                    if ((Program.players.Find(x => x.ip == SourceIP) == null))
-                    {
-                        Program.playerID++;
-                        player.partyID = Utils.FindPartyID();
-                        Program.players.Add(player);
-                    } 
-                }
-            }
         }
         public static void Start()
         {
