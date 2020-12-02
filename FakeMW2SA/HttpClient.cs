@@ -12,6 +12,7 @@ namespace FakeMW2SA
         {
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(content);
             response.ContentLength64 = buffer.Length;
+
             if (!string.IsNullOrEmpty(mimeType))
             {
                 response.ContentType = mimeType;
