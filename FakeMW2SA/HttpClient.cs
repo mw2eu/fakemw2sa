@@ -17,10 +17,12 @@ namespace FakeMW2SA
             {
                 response.ContentType = mimeType;
             }
+
             System.IO.Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
         }
     }
+
     class HttpClient
     {
         public static void Run()
@@ -30,12 +32,14 @@ namespace FakeMW2SA
                 Console.WriteLine("HttpListener not supported");
                 return;
             }
+
             try
             {
                 var localhostURI = "http://localhost:" + Program.port + "/";
                 HttpListener listener = new HttpListener();
                 listener.Prefixes.Add(localhostURI);
                 listener.Start();
+
                 //Console.WriteLine("Listening on " + localhostURI);
                 while (true)
                 {
@@ -47,6 +51,7 @@ namespace FakeMW2SA
                     string clientIP = context.Request.RemoteEndPoint.ToString();
 
                     response.AppendHeader("Access-Control-Allow-Origin", "*");
+
                     if (request.Url?.Segments.Length > 2 && request.Url?.Segments[1] == "assets/")
                     {
                         var assetName = request.Url?.Segments[1] + request.Url?.Segments[2];
@@ -58,6 +63,7 @@ namespace FakeMW2SA
                     else if (request.QueryString.GetValues("action") != null)
                     {
                         var action = request.QueryString.GetValues("action")[0];
+
                         switch (action)
                         {
                             case "blockadd":
@@ -81,6 +87,7 @@ namespace FakeMW2SA
                                 break;
                         }
                     }
+
                     response.WriteResponse(responseString);
                 }
             }
@@ -96,6 +103,7 @@ namespace FakeMW2SA
                 Console.WriteLine(e);
             }
         }
+
         public static void Start()
         {
             Thread a = new Thread(Run);
