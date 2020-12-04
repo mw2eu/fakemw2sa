@@ -116,31 +116,18 @@ function populate() {
         return dif + " sec ago";
     }
 
-    function nothing() {
-        return;
-    }
-
     //$("#playertable").append(content);
     playertable.innerHTML += content;
 
-    //apply party colours
-    var color = 0;
     var parties = [];
-    var colors = ["table-info", "table-warning", "table-success", "table-primary", "table-danger"];
 
     for (i = 0; i < playersdata.length - 1; i++) {
         if (playersdata[i]["partyID"] == playersdata[i + 1]["partyID"] && playersdata[i]["partyID"] != 1) {
-            parties.indexOf(playersdata[i]["partyID"]) === -1 ? parties.push(playersdata[i]["partyID"]) : nothing();
+            if (parties.indexOf(playersdata[i]["partyID"]) === -1) {
+                parties.push(playersdata[i]["partyID"]);
+            }
         }
     }
-
-    parties.forEach(function (element) {
-        $('tr.' + element).addClass(colors[color]);
-        color++;
-        if (color == colors.length) {
-            color = 0;
-        }
-    });
 }
 
 function reload() {
