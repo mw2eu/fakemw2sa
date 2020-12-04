@@ -70,7 +70,7 @@ function populate() {
         content += "<td>";
         content += lastseen(); // moment(player.lastseen * 1000).fromNow();
         content += "</td>";
-        $(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
+        //$(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
 
         // player VAC ban
         if (player.vacbanned == 1) {
