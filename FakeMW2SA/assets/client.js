@@ -1,4 +1,6 @@
 
+reload()
+
 function blockadd(ip) {
     fetch("/?action=blockadd&ip=" + ip);
     reload();
