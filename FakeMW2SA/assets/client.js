@@ -70,7 +70,8 @@ function populate() {
 
         // player seen
         content += "<td>";
-        content += lastseen(); // moment(player.lastseen * 1000).fromNow();
+        content += Math.round(new Date().valueOf() / 1000) - player.lastseen;
+        content += " sec go";
         content += "</td>";
         //$(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
 
@@ -109,13 +110,6 @@ function populate() {
         content += "</td>";
 
         content += "</tr>";
-    }
-
-    function lastseen() {
-        var d = new Date();
-        var epoch = Math.round(d.valueOf() / 1000);
-        var dif = epoch - player.lastseen;
-        return dif + " sec ago";
     }
 
     //$("#playertable").append(content);
