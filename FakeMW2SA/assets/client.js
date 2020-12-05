@@ -30,14 +30,6 @@ function playerlocation(player) {
     return result
 }
 
-function playerhost(player) {
-    if (player.host == true) {
-        return "host";
-    } else {
-        return "";
-    }
-}
-
 function populate() {
     while (playertable.firstChild) {
         playertable.removeChild(playertable.firstChild);
@@ -55,7 +47,7 @@ function populate() {
         content += escape(player.personaname)
         content += "</span></a>"
         content += "<button style='background-color:mediumpurple'>";
-        content += playerhost(player);
+        content += player.host ? "host" : ""
         content += "</button>";
         content += "</td>";
 
