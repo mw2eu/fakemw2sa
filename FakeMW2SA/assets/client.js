@@ -39,7 +39,6 @@ function playerhost(player) {
 }
 
 function populate() {
-    //$("#playertable").children().remove();
     while (playertable.firstChild) {
         playertable.removeChild(playertable.firstChild);
     }
@@ -70,7 +69,6 @@ function populate() {
         content += Math.round(new Date().valueOf() / 1000) - player.lastseen;
         content += " sec go";
         content += "</td>";
-        //$(("#" + (player.ip).replace(/\./g, '\\\.'))).append(" => " + escape(player.personaname));
 
         // player VAC ban
         if (player.vacbanned == 1) {
@@ -109,7 +107,6 @@ function populate() {
         content += "</tr>";
     }
 
-    //$("#playertable").append(content);
     playertable.innerHTML += content;
 
     var parties = [];
