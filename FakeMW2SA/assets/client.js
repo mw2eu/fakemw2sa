@@ -11,15 +11,13 @@ function block(ip, act) {
 }
 
 function vacban(player) {
-    let result = ""
+    let result = "False"
     if (player.vacbanned == 1) {
-        result += "("
+        result = "("
         result += player.numberofvacbans
         result += ") "
         result += Math.floor((new Date).getTime() / 86400000 - player.dateoflastban / 86400)
         result += "d"
-    } else {
-        result += "False"
     }
     return result
 }
