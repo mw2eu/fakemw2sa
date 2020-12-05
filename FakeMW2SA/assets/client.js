@@ -48,7 +48,7 @@ function populate() {
     for (player of playersdata) {
         content += "<tr>";
 
-        // player name with link to Steam profile
+        // Name (+ link to Steam profile)
         content += "<td><a target='_blank' href='";
         content += player.profileurl;
         content += "'><span>";
@@ -59,18 +59,18 @@ function populate() {
         content += "</button>";
         content += "</td>";
 
-        // player location
+        // Country
         content += "<td>";
         content += playerlocation(player);
         content += "</td>";
 
-        // player seen
+        // Time (days since last seen)
         content += "<td>";
         content += Math.round(new Date().valueOf() / 1000) - player.lastseen;
         content += " sec go";
         content += "</td>";
 
-        // player VAC ban
+        // VAC (ban)
         if (player.vacbanned == 1) {
             colorvac = "lightsalmon";
         } else {
@@ -82,7 +82,7 @@ function populate() {
         content += vacban(player)
         content += "</button></td>";
 
-        // Info > Copy (copies some information to the clipboard of the os)
+        // Info (copy player Steam ID and IP to clipboard)
         content += "<td><button style='background-color:lightgoldenrodyellow' onclick=copyTextToClipboard('";
         content += "https://steamcommunity.com/profiles/";
         content += player.steamid;
@@ -90,7 +90,7 @@ function populate() {
         content += player.ip;
         content += "')>Copy</button></td> ";
 
-        // Block > Add/Delete
+        // Block
         content += "<td>";
         if ((player.banned == null) || (player.banned == "False")) {
             content += "<button style='background-color:lightgreen' onclick=\"block('"
