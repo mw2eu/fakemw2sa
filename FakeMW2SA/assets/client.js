@@ -84,7 +84,6 @@ function populate() {
 
         // Info > Copy (copies some information to the clipboard of the os)
         content += "<td><button style='background-color:lightgoldenrodyellow' onclick=copyTextToClipboard('";
-        //content += `${player.steamid}\\n${strip(player.personaname)}\\n${player.ip}`;
         content += "https://steamcommunity.com/profiles/";
         content += player.steamid;
         content += "\\n";
