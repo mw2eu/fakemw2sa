@@ -30,6 +30,16 @@ function playerlocation(player) {
     return result
 }
 
+function copyTextToClipboard(text) {
+    var textArea = document.createElement("textarea")
+    textArea.value = text
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textArea)
+}
+
 function populate() {
     while (playertable.firstChild) {
         playertable.removeChild(playertable.firstChild);
@@ -200,20 +210,4 @@ function escape(args) {
     }
     s = (s + "</span>").replace(/<span><\/span>/g, "");
     return s = s.replace(/<span class=\"color[0-9]\"><\/span>/g, "");
-}
-
-function copyTextToClipboard(text) {
-    var textArea = document.createElement("textarea");
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-    } catch (err) {
-        console.log('Oops, unable to copy');
-    }
-    document.body.removeChild(textArea);
 }
