@@ -131,18 +131,11 @@ function populate() {
 }
 
 function reload() {
-    // ? https://api.jquery.com/jQuery.ajax/
-    // var jqxhr = $.ajax("example.php").done(function () {
-    jsonresponse = $.ajax("/?action=players").done(function () {
-        // https://api.jquery.com/jQuery.ajax/ > responseJSON
-        playersdata = jsonresponse.responseJSON["players"];
-        host = jsonresponse.responseJSON["host"];
-        ipaddresses = jsonresponse.responseJSON["ipaddresses"];
-        message = jsonresponse.responseJSON["message"];
+    fetch("/?action=players").then(response => response.text()).then(data => {
+        playersdata = JSON.parse(data).players
+        let partygroups = []
 
-        var partygroups = [];
-
-        for (i = 0; i < playersdata.length; i++) {
+        for (let i = 0; i < playersdata.length; i++) {
             var temp = playersdata.filter(function (a) {
                 return (a.partyID == i);
             });
