@@ -1,13 +1,12 @@
 
 reload()
 
-function blockadd(ip) {
-    fetch("/?action=blockadd&ip=" + ip);
-    reload();
-}
-
-function blockdelete(ip) {
-    fetch("/?action=blockdelete&ip=" + ip);
+function block(ip, act) {
+    if (act) {
+        fetch("/?action=blockadd&ip=" + ip)
+    } else {
+        fetch("/?action=blockdelete&ip=" + ip)
+    }
     reload();
 }
 
@@ -99,13 +98,13 @@ function populate() {
         // Block > Add/Delete
         content += "<td>";
         if ((player.banned == null) || (player.banned == "False")) {
-            content += "<button style='background-color:lightgreen' onclick=\"blockadd('"
+            content += "<button style='background-color:lightgreen' onclick=\"block('"
             content += player.ip
-            content += "')\">Add</button>"
+            content += "', true)\">Add</button>"
         } else {
-            content += "<button style='background-color:lightcoral' onclick=\"blockdelete('"
+            content += "<button style='background-color:lightcoral' onclick=\"block('"
             content += player.ip
-            content += "')\">Delete</button>"
+            content += "', false)\">Delete</button>"
         }
         content += "</td>";
 
