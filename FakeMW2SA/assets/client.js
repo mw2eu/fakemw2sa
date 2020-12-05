@@ -112,7 +112,7 @@ function populate() {
 
     var parties = [];
 
-    for (i = 0; i < playersdata.length - 1; i++) {
+    for (let i = 0; i < playersdata.length - 1; i++) {
         if (playersdata[i]["partyID"] == playersdata[i + 1]["partyID"] && playersdata[i]["partyID"] != 1) {
             if (parties.indexOf(playersdata[i]["partyID"]) === -1) {
                 parties.push(playersdata[i]["partyID"]);
@@ -169,8 +169,8 @@ function reload() {
         })
 
         newdata = []
-        for (a = 0; a < partygroups.length; a++) {
-            for (i = 0; i < partygroups[a].length; i++) {
+        for (let a = 0; a < partygroups.length; a++) {
+            for (let i = 0; i < partygroups[a].length; i++) {
                 newdata.push(partygroups[a][i]);
             }
         }
@@ -194,8 +194,7 @@ function escape(args) {
     args = args.replace(/'/g, "\&apos;");
     args = args.replace(/"/g, "\&quot;");
     var s = "<span>";
-    var i = 0;
-    for (; i < args.length; i++) {
+    for (let i = 0; i < args.length; i++) {
         if ("^" == args[i] && args[i + 1]) {
             var checked = args.charCodeAt(i + 1);
             if (48 <= checked && 57 >= checked) {
