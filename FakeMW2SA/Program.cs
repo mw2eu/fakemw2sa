@@ -6,14 +6,14 @@ namespace FakeMW2SA
 {
     class Program
     {
-        public static Object thisLock = new Object();
-        public static string MyExternalIP;
         public static List<PlayerModel> players = new List<PlayerModel>();
         public static int playerID = 0;
         public static int apicalls = 0;
         public static int partystatecount = 0;
         public static long port = 28962;
-        public static List<string> ipaddresses = new List<string>();
+
+        public static string MyExternalIP;
+
         public static void InitialWebCalls()
         {
             using (WebClient client = new WebClient())
@@ -29,6 +29,10 @@ namespace FakeMW2SA
                 }
             }
         }
+
+        public static Object thisLock = new Object();
+        public static List<string> ipaddresses = new List<string>();
+
         public static void Addipaddress(string item)
         {
             lock (thisLock)
@@ -42,6 +46,7 @@ namespace FakeMW2SA
             }
 
         }
+
         static void Main(string[] args)
         {
             Console.Title = "FakeMW2SA Version " + typeof(Program).Assembly.GetName().Version.ToString();
