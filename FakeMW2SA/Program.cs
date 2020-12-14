@@ -46,10 +46,6 @@ namespace FakeMW2SA
         }
         static void Main(string[] args)
         {
-            if (args.Length > 0)
-            {
-                Int64.TryParse(args[0], out port);
-            }
             Console.Title = "FakeMW2SA Version " + typeof(Program).Assembly.GetName().Version.ToString();
             HttpClient.Start();
             Sniffer.Start();
