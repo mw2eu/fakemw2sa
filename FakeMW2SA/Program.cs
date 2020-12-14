@@ -14,8 +14,6 @@ namespace FakeMW2SA
         public static int partystatecount = 0;
         public static long port = 28962;
         public static List<string> ipaddresses = new List<string>();
-        public static int ipindex = 0;
-        public static Version CurrentVersion = new Version(typeof(Program).Assembly.GetName().Version.ToString());
         public static void InitialWebCalls()
         {
             using (WebClient client = new WebClient())
